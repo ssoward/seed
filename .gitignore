@@ -1,0 +1,9 @@
+.idea
+*.iml
+*.ipr
+*.iws
+target/
+.gitconfig
+.classpath
+.project
+.settings/
