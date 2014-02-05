@@ -96,8 +96,8 @@ public class Application extends DelegatingWebMvcConfiguration{
                     .and()
                     .authorizeRequests()
                     .antMatchers("/resources/**").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
+                    .antMatchers("../app/**").permitAll()
+                    .anyRequest().authenticated()    //remove this line removes site security
             ;
 
 //            http
@@ -121,7 +121,7 @@ public class Application extends DelegatingWebMvcConfiguration{
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
             auth.inMemoryAuthentication()
-                    .withUser("leader").password("password").roles("USER", "ADMIN").and()
+                    .withUser("leader@me.com").password("password").roles("USER", "ADMIN").and()
                     .withUser("scout").password("password").roles("USER");
         }
     }
