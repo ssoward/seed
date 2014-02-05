@@ -96,7 +96,7 @@ public class Application extends DelegatingWebMvcConfiguration{
                     .and()
                     .authorizeRequests()
                     .antMatchers("/resources/**").permitAll()
-                    .antMatchers("../app/**").permitAll()
+                    .antMatchers("/static/**").permitAll()
                     .anyRequest().authenticated()    //remove this line removes site security
             ;
 
