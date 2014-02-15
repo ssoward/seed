@@ -29,6 +29,15 @@
   padding: 0;
 }
 
+.logout{
+    position: absolute;
+    background-color: #EEEEEE;
+    border-radius: 5px 5px 5px 5px;
+    padding: 5px;
+    right: 34px;
+    top: 15px;
+}
+
 body {
   padding-top: 40px;
   padding-bottom: 40px;

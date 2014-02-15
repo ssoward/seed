@@ -1,8 +1,4 @@
 <html ng-app="myApp">
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,44 +6,40 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link href="css/bootstrap.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/app.css">
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
 
+<div class="navbar-right" ng-controller="HomeController">{{ user.username }}<span class="logout btn"> <a href="./logout">logout</a></span></div>
+
 <ul class="menu">
-    <li><a href="#/view1">view1234</a></li>
+    <li><a href="#/view1">view1</a></li>
     <li><a href="#/view2">view2</a></li>
 </ul>
-<p>Hello world! This is HTML5 Boilerplate.</p>
 <div ng-view></div>
 
 
 <!-- APP SCRIPT -->
 <script src="lib/angular/angular.js"></script>
+<script src="lib/angular/angular-animate.js"></script>
+<script src="lib/angular/angular-ui-router.js"></script>
 <script src="lib/angular/angular-route.js"></script>
+<script src="lib/angular/ui-bootstrap-tpls.js"></script>
 <script src="js/app.js"></script>
 <script src="js/appRoute.js"></script>
 <script src="js/services/HomeService.js"></script>
-<script src="js/services.js"></script>
-<script src="js/controllers.js"></script>
-<script src="js/controllers/ControllerHome.js"></script>
-<script src="js/filters.js"></script>
-<script src="js/directives.js"></script>
+<script src="js/controllers/HomeController.js"></script>
+
 <!-- APP SCRIPT -->
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-<script src="js/plugins.js"></script>
-<script src="js/main.js"></script>
 
 </body>
 </html>

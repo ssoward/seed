@@ -1,7 +1,1 @@
-angular.module('myApp', [
-  'ngRoute',
-  'myApp.filters',
-  'myApp.services',
-  'myApp.directives',
-  'myApp.controllers'
-]);
+angular.module('myApp', ['ngRoute', 'ngAnimate', 'ui.router', 'ui.bootstrap']);

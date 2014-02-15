@@ -1,4 +1,4 @@
-angular.module('myApp').controller('ControllerHome', function ($scope, HomeService, $log){
+angular.module('myApp').controller('HomeController', function ($scope, HomeService, $log){
     $scope.greeting = 'Hello, world';
     init();
     function init(){
