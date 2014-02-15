@@ -71,35 +71,37 @@ public class Application extends DelegatingWebMvcConfiguration{
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 
-    //security
-    @Configuration
-    @EnableWebSecurity
-    @EnableGlobalMethodSecurity(prePostEnabled = true)
-    static class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-        @Override
-        @Bean
-        public AuthenticationManager authenticationManagerBean() throws Exception {
-            return authenticationManager();
-        }
 
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-
-            http
-                    .csrf().disable()
-                    .formLogin()
-                    .loginPage("/enter")
-                    .permitAll()
-                    .and()
-                    .logout()
-                    .permitAll()
-                    .and()
-                    .authorizeRequests()
-                    .antMatchers("/resources/**").permitAll()
-                    .antMatchers("/static/**").permitAll()
-                    .anyRequest().authenticated()    //remove this line removes site security
-            ;
+//    //security
+//    @Configuration
+//    @EnableWebSecurity
+//    @EnableGlobalMethodSecurity(prePostEnabled = true)
+//    static class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+//
+//        @Override
+//        @Bean
+//        public AuthenticationManager authenticationManagerBean() throws Exception {
+//            return authenticationManager();
+//        }
+//
+//        @Override
+//        protected void configure(HttpSecurity http) throws Exception {
+//
+//            http
+//                    .csrf().disable()
+//                    .formLogin()
+//                    .loginPage("/enter")
+//                    .permitAll()
+//                    .and()
+//                    .logout()
+//                    .permitAll()
+//                    .and()
+//                    .authorizeRequests()
+//                    .antMatchers("/resources/**").permitAll()
+//                    .antMatchers("/static/**").permitAll()
+//                    .anyRequest().authenticated()    //remove this line removes site security
+//            ;
 
 //            http
 //                    .formLogin()
@@ -109,7 +111,7 @@ public class Application extends DelegatingWebMvcConfiguration{
 //                    .authorizeRequests()
 //                    .anyRequest()
 //                    .authenticated();
-        }
+//        }
 //            http.httpBasic().and()
 //            http.formLogin().and()
 //            http.formLogin().permitAll()
@@ -119,11 +121,13 @@ public class Application extends DelegatingWebMvcConfiguration{
 //                    .antMatchers("/api/scouts*").hasRole("USER");   //url level security
 //        }
 
-        @Override
-        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.inMemoryAuthentication()
-                    .withUser("leader@me.com").password("password").roles("USER", "ADMIN").and()
-                    .withUser("scout").password("password").roles("USER");
-        }
-    }
+//        @Override
+//        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//            auth.inMemoryAuthentication()
+//                    .withUser("leader@me.com").password("password").roles("USER", "ADMIN").and()
+//                    .withUser("scout").password("password").roles("USER");
+//        }
+//    }
+
+
 }
