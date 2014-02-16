@@ -12,6 +12,7 @@ public class Users {
 
     public Long id;
     public String name;
+    public String auth;
 
     public String getName() {
         return name;
@@ -27,5 +28,13 @@ public class Users {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getAuth() {
+        return auth;
+    }
+
+    public void setAuth(String auth) {
+        this.auth = auth;
     }
 }

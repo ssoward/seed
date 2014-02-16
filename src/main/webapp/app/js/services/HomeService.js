@@ -8,6 +8,13 @@ angular.module('myApp').service('HomeService', function ($http, $log) {
         });
     };
 
+    this.getAllUsers = function (){
+        return $http({
+            method: 'GET',
+            url: '/users'
+        });
+    };
+
     this.setUser = function (pro){
         user = pro;
     };

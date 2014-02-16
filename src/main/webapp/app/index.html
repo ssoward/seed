@@ -16,13 +16,14 @@
 </head>
 <body>
 
-<div class="navbar-right" ng-controller="HomeController">{{ user.username }}<span class="logout btn"> <a href="./logout">logout</a></span></div>
+<div class="navbar-right" ng-controller="HomeController">{{ user.username }}<span class="logout btn"> <a href="/logout">logout</a></span></div>
 
 <ul class="menu">
     <li><a href="#/view1">view1</a></li>
     <li><a href="#/view2">view2</a></li>
+    <li><a href="#/admin">admin</a></li>
 </ul>
-<div ng-view></div>
+    <div ui-view autoscroll="false"></div>
 
 
 <!-- APP SCRIPT -->
@@ -35,6 +36,7 @@
 <script src="js/appRoute.js"></script>
 <script src="js/services/HomeService.js"></script>
 <script src="js/controllers/HomeController.js"></script>
+<script src="js/controllers/AdminController.js"></script>
 
 <!-- APP SCRIPT -->
 
