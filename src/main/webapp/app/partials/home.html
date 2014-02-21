@@ -1,0 +1,35 @@
+<div>
+    <span class="panel-title">Points</span>
+    <ul class="nav">
+        <li>Available points to allocate</li>
+        <li>Total points received</li>
+        <li>Total points earned</li>
+        <li>Total points to bid</li>
+    </ul>
+</div>
+<br>
+<div class="form-group">
+    <label for="peer">Please select a peer:</label>
+    <select ng-model="newMember" name="reason" id="peer" class="form-control"
+            ng-options="mem.id as mem.name for mem in members">
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="releaseReason">Please select a compliment:</label>
+    <select ng-model="newCompliment" name="reason" id="releaseReason" class="form-control"
+            ng-options="comp.id as comp.name for comp in compliments">
+    </select>
+</div>
+<ul class="list-inline text-right">
+    <li><a ng-click="getPrevious()" class="btn btn-default">Cancel</a></li>
+    <li><a ng-click="getNext()" class="btn btn-primary">Save</a></li>
+</ul>
+<br/>
+<div>
+    <span class="panel-title">History</span>
+    <ul class="navbar-collapse" ng-repeat="hist in history">
+        <div>{{hist.date}} {{hist.praiser}} prasied {{hist.praisee}} for {{hist.praise}}</div>
+    </ul>
+</div>
+

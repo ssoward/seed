@@ -1,12 +1,12 @@
 var myApp = angular.module('myApp');
 
 myApp.config(function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/view1');
+    $urlRouterProvider.otherwise('/home');
 
     $stateProvider
-            .state('view1', {
-                url: '/view1',
-                templateUrl: 'partials/partial1.html',
+            .state('home', {
+                url: '/home',
+                templateUrl: 'partials/home.html',
                 controller: 'HomeController'
             })
             .state('view2', {
