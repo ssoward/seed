@@ -12,4 +12,6 @@ public interface UserService {
     User getLoggedInUser();
 
     List<Users> getUsers();
+
+    void saveUser(Users praiser);
 }

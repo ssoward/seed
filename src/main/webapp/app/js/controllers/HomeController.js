@@ -30,4 +30,14 @@ angular.module('myApp').controller('HomeController', function ($scope, HomeServi
             HomeService.setUser($scope.user);
         });
     }
+
+    $scope.savePraise = function (){
+        $log.debug($scope.newPraisee);
+        $log.debug($scope.newPraise);
+
+        //        if($scope.proposal.releaseReason.id || $scope.proposal.releaseReasonOtherDesc){
+//            BishopService.saveProposalReleaseReason($scope.proposal.releaseReason.id, $scope.proposal.releaseReasonOtherDesc);
+//        }
+    };
+
 });

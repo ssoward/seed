@@ -22,4 +22,13 @@ angular.module('myApp').service('HomeService', function ($http, $log) {
     this.getUser = function (){
         return user;
     };
+
+    this.saveNewUser = function(praiser){
+        return $http({
+            method: 'POST',
+            data: praiser,
+            url: '/api/praiser'
+        });
+    }
+
 });

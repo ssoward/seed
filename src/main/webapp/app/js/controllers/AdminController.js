@@ -9,7 +9,15 @@ angular.module('myApp').controller('AdminController', function ($scope, HomeServ
                 $scope.users = users;
             });
         });
-
-
     }
+
+
+    $scope.saveNewUser = function (){
+        if($scope.passwordConfirm === $scope.praiser.password ){
+            HomeService.saveNewUser($scope.praiser);
+        }
+        else{
+            alert('Passwords don\'t match');
+        }
+    };
 });

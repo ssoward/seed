@@ -40,7 +40,7 @@ public class TestUtil {
             Long id = ((Integer) m.get("id")).longValue();
             Users u = new Users();
             u.setId(id);
-            u.setName(name);
+            u.setFirstName(name);
             uList.add(u);
         }
 //   		Iterator it = studentList.iterator();
