@@ -2,22 +2,38 @@ angular.module('myApp').controller('AdminController', function ($scope, HomeServ
     $scope.greeting = 'Hello, world';
     init();
     function init(){
-        HomeService.getAllUsers().then(function(res){
-            var users = [];
-            angular.forEach(res.data, function(item){
-                users.push(item);
-                $scope.users = users;
-            });
-        });
+        updateUsers();
     }
 
 
+    function updateUsers(){
+        $scope.praiser = null;
+        $scope.passwordConfirm = null;
+        HomeService.getAllUsers().then(function(res){
+            $scope.users = res.data;
+        });
+    }
+
+    $scope.setUser = function (user){
+        $scope.praiser = user;
+        $scope.passwordConfirm = user.password;
+
+    };
+
     $scope.saveNewUser = function (){
-        if($scope.passwordConfirm === $scope.praiser.password ){
-            HomeService.saveNewUser($scope.praiser);
+        if($scope.praiser && $scope.praiser.firstName && $scope.passwordConfirm === $scope.praiser.password ){
+            HomeService.saveNewUser($scope.praiser).then(function(res){
+                updateUsers();
+            });
         }
         else{
             alert('Passwords don\'t match');
         }
+    };
+
+    $scope.deleteUser = function (user){
+        HomeService.deleteUser(user).then(function(res){
+            updateUsers();
+        });
     };
 });

@@ -37,7 +37,7 @@
                             </div>
                         </div>
 
-                        <input type="submit" value="Enter" data-ng-click="saveNewUser()" class="btn btn-info btn-block">
+                        <input type="submit" value="Save" data-ng-click="saveNewUser()" class="btn btn-info btn-block">
 
                     </form>
                 </div>
@@ -48,6 +48,9 @@
 
 
 All Users:
-<div data-ng-repeat="user in users">
-    {{ user }}
-</div>
+<ul class="dropdown-toggle" role="menu">
+    <li ng-repeat="user in users">
+        <button class="btn btn-danger" ng-click="deleteUser(user)" value="delete"/>
+        <a class="btn-link" ng-click="setUser(user)" data-toggle="modal">{{ user.firstName }} {{ user.email }}</a>
+    </li>
+</ul>

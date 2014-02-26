@@ -8,9 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by ssoward on 2/22/14.
@@ -30,9 +28,15 @@ public class HomeController {
     @RequestMapping(method = RequestMethod.POST, value="/praiser", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity savePraiser(@RequestBody Users praiser) {
         if(praiser != null){
-           userService.saveUser(praiser);
+            userService.saveUser(praiser);
         }
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value="/praiser", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deletePraiser(@RequestParam String username) {
+        userService.deleteUser(username);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

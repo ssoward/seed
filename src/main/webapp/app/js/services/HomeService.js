@@ -31,4 +31,14 @@ angular.module('myApp').service('HomeService', function ($http, $log) {
         });
     }
 
+    this.deleteUser = function(praiser){
+        return $http({
+            method: 'DELETE',
+            params: {
+                username: praiser.email
+            },
+            url: '/api/praiser'
+        });
+    }
+
 });

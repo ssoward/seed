@@ -36,11 +36,14 @@ public class UserServiceImpl implements UserService {
         List<Users> uList = new ArrayList<Users>();
         List<Map<String, Object>> l = jdbcTemplate.queryForList("select * from users u join authorities a on a.username = u.username");
         for (Map<String, Object> m : l) {
-            String name = (String) m.get("username");
+            String email = (String) m.get("username");
             String auth = (String) m.get("authority");
             Users u = new Users();
+            u.setFirstName((String) m.get("first_name"));
+            u.setLastName((String) m.get("last_name"));
+            u.setPassword((String) m.get("password"));
             u.setAuth(auth);
-            u.setFirstName(name);
+            u.setEmail(email);
             uList.add(u);
         }
         return uList;
@@ -48,14 +51,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(Users praiser) {
+        //check if this is an update to the user
+        Integer i = jdbcTemplate.queryForObject("select count(*) from users where username = ?", new Object[] {praiser.getEmail()}, Integer.class);
+        if(i != null){
+            jdbcTemplate.update("update users set first_name = ?, last_name = ?, password = ? where username = ?",
+                    praiser.getFirstName(),
+                    praiser.getLastName(),
+                    praiser.getPassword(),
+                    praiser.getEmail());
+        }else{
+            jdbcTemplate.update("insert into users values (?,?,1,?,?)",
+                    praiser.getEmail(),
+                    praiser.getPassword(),
+                    praiser.getFirstName(), praiser.getLastName());
 
-        jdbcTemplate.update("insert into users values (?,?,1,?,?)",
-                praiser.getEmail(),
-                praiser.getPassword(),
-                praiser.getFirstName(), praiser.getLastName());
+            jdbcTemplate.update("insert into authorities values (?, 'ROLE_AUTH')",
+                    praiser.getEmail());
+        }
 
-        jdbcTemplate.update("insert into authorities values (?, 'ROLE_AUTH')",
-                praiser.getEmail());
+    }
 
+    @Override
+    public void deleteUser(String username) {
+        jdbcTemplate.update("delete from users where username = ?", username);
     }
 }
