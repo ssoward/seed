@@ -17,10 +17,10 @@ angular.module('myApp').controller('HomeController', function ($scope, HomeServi
     ];
 
     $scope.history = [
-        {date:' 11 Apr 2013', praiser:'Scott', praisee:'Larry', praise:$scope.compliments[0].name},
-        {date:' 11 Apr 2013', praiser:'Mike' , praisee:'Myra' , praise:$scope.compliments[1].name},
-        {date:' 11 Apr 2013', praiser:'Ike'  , praisee:'Adam' , praise:$scope.compliments[2].name},
-        {date:' 11 Apr 2013', praiser:'Lala' , praisee:'Anna' , praise:$scope.compliments[3].name}
+//        {date:' 11 Apr 2013', praiser:'Scott', praisee:'Larry', praise:$scope.compliments[0].name},
+//        {date:' 11 Apr 2013', praiser:'Mike' , praisee:'Myra' , praise:$scope.compliments[1].name},
+//        {date:' 11 Apr 2013', praiser:'Ike'  , praisee:'Adam' , praise:$scope.compliments[2].name},
+//        {date:' 11 Apr 2013', praiser:'Lala' , praisee:'Anna' , praise:$scope.compliments[3].name}
     ];
 
     init();

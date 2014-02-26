@@ -18,5 +18,15 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
                 url: '/admin',
                 templateUrl: 'partials/admin.html',
                 controller: 'AdminController'
+            })
+            .state('chart', {
+                url: '/chart',
+                templateUrl: 'partials/line.html',
+                controller: 'LineController'
+            })
+            .state('pie', {
+                url: '/pie',
+                templateUrl: 'partials/pie.html',
+                controller: 'PieController'
             });
 });
