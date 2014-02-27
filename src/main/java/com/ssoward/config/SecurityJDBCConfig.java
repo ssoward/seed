@@ -52,7 +52,7 @@ public class SecurityJDBCConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/static/**").permitAll()
-                .antMatchers("/**").hasRole("AUTH");
+                .antMatchers("/**").hasAnyRole("AUTH", "ADMIN");
     }
 
 }

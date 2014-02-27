@@ -21,7 +21,14 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="email" data-ng-model="praiser.email" required name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+                            <input type="email" ng-disabled="editUser" data-ng-model="praiser.email" required name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+                        </div>
+                        <div class="form-group" data-ng-show="userAdmin">
+                            <select id="select-position" class="selectpicker form-control"
+                                    ng-model="praiser.auth"
+                                    ng-options="role.value as role.name for role in roles">
+                                <option style="display:none" value="">Choose a Role</option>
+                            </select>
                         </div>
 
                         <div class="row">
@@ -36,7 +43,7 @@
                                 </div>
                             </div>
                         </div>
-
+                        <a class="btn-link" ng-click="toggleClear()" data-toggle="modal">clear</a>
                         <input type="submit" value="Save" data-ng-click="saveNewUser()" class="btn btn-info btn-block">
 
                     </form>
@@ -47,10 +54,12 @@
 </div>
 
 
-All Users:
-<ul class="dropdown-toggle" role="menu">
-    <li ng-repeat="user in users">
-        <button class="btn btn-danger" ng-click="deleteUser(user)" value="delete"/>
-        <a class="btn-link" ng-click="setUser(user)" data-toggle="modal">{{ user.firstName }} {{ user.email }}</a>
-    </li>
-</ul>
+<div data-ng-show="userAdmin">
+    <p>Only Admins can update/delete uses.</p>
+    <ul class="dropdown-toggle" role="menu">
+        <li ng-repeat="user in users">
+            <button class="btn btn-danger" ng-click="deleteUser(user)" value="delete"/>
+            <a class="btn-link" ng-click="setUser(user)" data-toggle="modal">{{ user.firstName }} {{ user.email }}</a>
+        </li>
+    </ul>
+</div>
