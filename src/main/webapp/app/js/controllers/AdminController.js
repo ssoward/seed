@@ -5,7 +5,6 @@ angular.module('myApp').controller('AdminController', function ($scope, HomeServ
         $scope.roles = getRoles();
         HomeService.getLoggedInUser().then(function(res){
             $scope.user = res.data;
-            HomeService.setUser($scope.user);
             $scope.userAdmin = ($scope.user.authorities[0].authority == 'ROLE_ADMIN');
             updateUsers();
         });
