@@ -9,9 +9,10 @@ angular.module('myApp').controller('AdminController', function ($scope, HomeServ
             updateUsers();
         });
         $scope.$on('divButton:clicked', function(event, message){
-
             alert(message);
-        })
+        });
+
+        $scope.numbers = getNumbers();
     }
 
     $scope.alerts = [
@@ -48,11 +49,21 @@ angular.module('myApp').controller('AdminController', function ($scope, HomeServ
         HomeService.saveCount(praiser).then(function(res){
 //            $rootScope.$broadcast('divButton:clicked', 'hello world via event');
             //updateUsers();
-            $scope.alerts.push({type: 'success', msg: 'Successfully saved count for user '+ praiser.firstName+'.'});
+            $scope.showMessage('success', 'Successfully saved count for user '+ praiser.firstName+'.');
         });
     };
 
+    $scope.clearMessage = function(){
+        $scope.alerts = [];
+    }
+
+    $scope.showMessage = function(typee, msgg){
+        $scope.alerts = [];
+        $scope.alerts.push({type: typee, msg: msgg});
+    }
+
     $scope.setUser = function (user){
+        $scope.clearMessage();
         $scope.editUser = true;
         $scope.praiser = user;
         $scope.passwordConfirm = user.password;
@@ -61,7 +72,7 @@ angular.module('myApp').controller('AdminController', function ($scope, HomeServ
     $scope.saveNewUser = function (){
         if($scope.praiser && $scope.praiser.firstName && $scope.passwordConfirm === $scope.praiser.password ){
             HomeService.saveNewUser($scope.praiser).then(function(res){
-                $scope.alerts.push({type: 'success', msg: 'Successfully saved user '+ $scope.praiser.firstName+'.'});
+                $scope.showMessage('success', 'Successfully saved user '+ $scope.praiser.firstName+'.');
                 updateUsers();
             });
         }
@@ -81,5 +92,13 @@ angular.module('myApp').controller('AdminController', function ($scope, HomeServ
             {name: 'Admin', value: 'ROLE_ADMIN'},
             {name: 'Auth', value: 'ROLE_AUTH'}
         ]
+    }
+
+    function getNumbers(){
+        var numbers = [];
+        for(var i = 0; i < 101; i++){
+            numbers.push({name: i+'', value: i+''});
+        }
+        return numbers;
     }
 });

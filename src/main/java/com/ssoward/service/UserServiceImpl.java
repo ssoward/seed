@@ -51,10 +51,11 @@ public class UserServiceImpl implements UserService {
         //check if this is an update to the user
         Integer i = jdbcTemplate.queryForObject("select count(*) from users where username = ?", new Object[] {praiser.getEmail()}, Integer.class);
         if(i == 1){
-            jdbcTemplate.update("update users set first_name = ?, last_name = ?, password = ? where username = ?",
+            jdbcTemplate.update("update users set first_name = ?, last_name = ?, password = ?, count = ? where username = ?",
                     praiser.getFirstName(),
                     praiser.getLastName(),
                     praiser.getPassword(),
+                    praiser.getCount(),
                     praiser.getEmail());
 
             jdbcTemplate.update("update authorities set authority = ? where username = ?",
@@ -62,10 +63,13 @@ public class UserServiceImpl implements UserService {
                     praiser.getEmail());
         }
         else{
-            jdbcTemplate.update("insert into users values (?,?,1,?,?)",
+            jdbcTemplate.update("insert into users values (?,?,1,?,?,?)",
                     praiser.getEmail(),
                     praiser.getPassword(),
-                    praiser.getFirstName(), praiser.getLastName());
+                    praiser.getFirstName(),
+                    praiser.getLastName(),
+                    praiser.getCount()
+            );
 
             jdbcTemplate.update("insert into authorities values (?, 'ROLE_AUTH')",
                     praiser.getEmail());
