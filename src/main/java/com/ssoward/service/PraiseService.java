@@ -12,4 +12,6 @@ public interface PraiseService {
     List<Praise> getPraises();
 
     void savePraise(Praise praise);
+
+    void deletePraise(Long id);
 }

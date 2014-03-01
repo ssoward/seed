@@ -46,10 +46,16 @@ public class PraiseController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/test", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(method = RequestMethod.GET, value = "/praises", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public List<Praise> testUser(HttpServletRequest request) {
+    public List<Praise> getPraises(HttpServletRequest request) {
         return praiseService.getPraises();
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value="/praise", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteEmployee(@RequestParam Long id) {
+        praiseService.deletePraise(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

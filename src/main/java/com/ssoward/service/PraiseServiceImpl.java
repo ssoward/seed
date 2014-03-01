@@ -47,4 +47,9 @@ public class PraiseServiceImpl implements PraiseService {
                 praise.getPraise()
         );
     }
+
+    @Override
+    public void deletePraise(Long id) {
+        jdbcTemplate.update("delete from praise where id = ?", id);
+    }
 }

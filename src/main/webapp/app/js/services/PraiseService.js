@@ -11,7 +11,18 @@ angular.module('myApp').service('PraiseService', function ($http, $log) {
     this.getAllPraises = function (){
         return $http({
             method: 'GET',
-            url: '/praises'
+            url: '/api/praises'
         });
     };
+
+    this.deletePraise = function(praise){
+        return $http({
+            method: 'DELETE',
+            params: {
+                id: praise.id
+            },
+            url: '/api/praise'
+        });
+    }
+
 });

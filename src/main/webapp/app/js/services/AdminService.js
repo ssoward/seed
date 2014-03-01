@@ -2,17 +2,13 @@ angular.module('myApp').service('AdminService', function ($http, $log) {
     var user = null;
 
     this.getLoggedInUser = function (){
-        if(user){
-            return user;
-        }else{
-            return $http({
-                method: 'GET',
-                url: '/api/loggedIn'
-            }).then(function(res){
-                user = res.data;
-                return res;
-            });
-        }
+        return $http({
+            method: 'GET',
+            url: '/api/loggedIn'
+        }).then(function(res){
+            user = res.data;
+            return res;
+        });
     };
 
     this.getAllUsers = function (){
