@@ -68,7 +68,6 @@ angular.module('myApp').controller('AdminController', function ($scope, AdminSer
     }
 
     $scope.setUser = function (user){
-        $scope.clearMessage();
         $scope.editUser = true;
         $scope.praiser = user;
         $scope.passwordConfirm = user.password;

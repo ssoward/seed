@@ -65,7 +65,8 @@ public class UserServiceImpl implements UserService {
         if(i == 1){
             boolean changePassword = true;
             //only change password if it has been changed from ****
-            if(praiser.getPassword().indexOf('*') == -1){
+            int ii = praiser.password.indexOf('*');
+            if(ii > -1){
                 changePassword = false;
             }
             if(changePassword){
