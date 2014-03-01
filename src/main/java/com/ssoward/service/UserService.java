@@ -16,4 +16,6 @@ public interface UserService {
     void saveUser(Users praiser);
 
     void deleteUser(String username);
+
+    void saveUserCount(Users praiser);
 }

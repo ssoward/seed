@@ -17,6 +17,7 @@ public class Users {
     public String auth;
     public String email;
     public String password;
+    private Integer count;
 
     public String getFirstName() {
         return firstName;
@@ -64,5 +65,13 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

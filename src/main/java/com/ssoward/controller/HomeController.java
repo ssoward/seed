@@ -33,6 +33,15 @@ public class HomeController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    //{"firstName":"scott","lastName":"soward","email":"amorvivir@yahoo.com","password":"password","passwordConfirm":"password"}
+    @RequestMapping(method = RequestMethod.PUT, value="/praiser/count", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity savePraiserCount(@RequestBody Users praiser) {
+        if(praiser != null){
+            userService.saveUserCount(praiser);
+        }
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
     @RequestMapping(method = RequestMethod.DELETE, value="/praiser", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deletePraiser(@RequestParam String username) {
         userService.deleteUser(username);

@@ -31,6 +31,14 @@ angular.module('myApp').service('HomeService', function ($http, $log) {
         });
     }
 
+    this.saveCount = function(praiser){
+        return $http({
+            method: 'PUT',
+            data: praiser,
+            url: '/api/praiser/count'
+        });
+    }
+
     this.deleteUser = function(praiser){
         return $http({
             method: 'DELETE',

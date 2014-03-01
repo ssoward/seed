@@ -1,4 +1,4 @@
-angular.module('myApp').controller('AdminController', function ($scope, HomeService, $log){
+angular.module('myApp').controller('AdminController', function ($scope, HomeService, $log, $rootScope){
     $scope.greeting = 'Hello, world';
     init();
     function init(){
@@ -8,7 +8,20 @@ angular.module('myApp').controller('AdminController', function ($scope, HomeServ
             $scope.userAdmin = ($scope.user.authorities[0].authority == 'ROLE_ADMIN');
             updateUsers();
         });
+        $scope.$on('divButton:clicked', function(event, message){
+
+            alert(message);
+        })
     }
+
+    $scope.alerts = [
+//        { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
+//        { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
+    ];
+
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
 
     function updateUsers(){
         $scope.toggleClear();
@@ -23,13 +36,21 @@ angular.module('myApp').controller('AdminController', function ($scope, HomeServ
                 }
             }
         });
-    }
+    };
 
     $scope.toggleClear = function (){
         $scope.editUser = false;
         $scope.praiser = null;
         $scope.passwordConfirm = null;
-    }
+    };
+
+    $scope.updateCount = function (praiser){
+        HomeService.saveCount(praiser).then(function(res){
+//            $rootScope.$broadcast('divButton:clicked', 'hello world via event');
+            //updateUsers();
+            $scope.alerts.push({type: 'success', msg: 'Successfully saved count for user '+ praiser.firstName+'.'});
+        });
+    };
 
     $scope.setUser = function (user){
         $scope.editUser = true;
@@ -40,6 +61,7 @@ angular.module('myApp').controller('AdminController', function ($scope, HomeServ
     $scope.saveNewUser = function (){
         if($scope.praiser && $scope.praiser.firstName && $scope.passwordConfirm === $scope.praiser.password ){
             HomeService.saveNewUser($scope.praiser).then(function(res){
+                $scope.alerts.push({type: 'success', msg: 'Successfully saved user '+ $scope.praiser.firstName+'.'});
                 updateUsers();
             });
         }

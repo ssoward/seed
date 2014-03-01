@@ -3,15 +3,11 @@ package com.ssoward.service;
 import com.ssoward.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +38,7 @@ public class UserServiceImpl implements UserService {
             u.setFirstName((String) m.get("first_name"));
             u.setLastName((String) m.get("last_name"));
             u.setPassword((String) m.get("password"));
+            u.setCount((Integer) m.get("count"));
             u.setAuth(auth);
             u.setEmail(email);
             uList.add(u);
@@ -79,5 +76,10 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(String username) {
         jdbcTemplate.update("delete from users where username = ?", username);
         jdbcTemplate.update("delete from authorities where username = ?", username);
+    }
+
+    @Override
+    public void saveUserCount(Users praiser) {
+        jdbcTemplate.update("update users set count = ? where username = ?", praiser.getCount(), praiser.getEmail());
     }
 }

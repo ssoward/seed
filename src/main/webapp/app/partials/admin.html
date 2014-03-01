@@ -1,3 +1,7 @@
+<div>
+  <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+</div>
+
 <div class="container">
     <div class="row centered-form">
         <div class="col-xs-12 col-sm-8 col-md-4">
@@ -43,23 +47,36 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="btn-link" ng-click="toggleClear()" data-toggle="modal">clear</a>
+                        <a class="btn-link" data-ng-show="userAdmin" ng-click="toggleClear()" data-toggle="modal">clear</a>
                         <input type="submit" value="Save" data-ng-click="saveNewUser()" class="btn btn-info btn-block">
-
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 <div data-ng-show="userAdmin">
+    <div data-ng-show="editUser">
+        <div>Update user praise count: {{praiser.count}}</div>
+        <slider floor="0" ceiling="50" ng-blur="updateCount(praiser)" ng-model="praiser.count"></slider>
+    </div>
     <p>Only Admins can update/delete uses.</p>
-    <ul class="dropdown-toggle" role="menu">
-        <li ng-repeat="user in users">
-            <button class="btn btn-danger" ng-click="deleteUser(user)" value="delete"/>
-            <a class="btn-link" ng-click="setUser(user)" data-toggle="modal">{{ user.firstName }} {{ user.email }}</a>
-        </li>
-    </ul>
+    <table class="table table-striped table-bordered" role="menu">
+        <tbody>
+        <th>Delete</th>
+        <th>Edit</th>
+        <th>Points</th>
+        <tr ng-repeat="user in users">
+            <td class="col-narrow">
+                <button class="btn btn-danger" ng-click="deleteUser(user)" value="delete"/>
+            </td>
+            <td>
+                <a class="btn-link" ng-click="setUser(user)" data-toggle="modal">{{ user.firstName }} {{ user.email }}</a>
+            </td>
+            <td class="ccol-narrow">
+                <div>{{ user.count }} </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
