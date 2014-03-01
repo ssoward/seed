@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="btn-link" data-ng-show="userAdmin" ng-click="toggleClear()" data-toggle="modal">clear</a>
+                        <a class="btn-link" tooltip="Clear Fields" data-ng-show="userAdmin" ng-click="toggleClear()" data-toggle="modal">reset</a>
                         <input type="submit" value="Save" data-ng-click="saveNewUser()" class="btn btn-info btn-block">
                     </form>
                 </div>
@@ -82,10 +82,10 @@
         <th>Points</th>
         <tr ng-repeat="user in users">
             <td class="col-narrow">
-                <button class="btn btn-danger" ng-click="deleteUser(user)" value="delete"/>
+                <button tooltip="Delete Employee" class="btn btn-danger" ng-click="deleteUser(user)" value="delete"/>
             </td>
             <td>
-                <a class="btn-link" ng-click="setUser(user)" data-toggle="modal">{{ user.firstName }} {{ user.email }}</a>
+                <a class="btn-link" tooltip="Edit Employee" ng-click="setUser(user)" data-toggle="modal">{{ user.firstName }} {{ user.email }}</a>
             </td>
             <td class="ccol-narrow">
                 <div>{{ user.count }} </div>

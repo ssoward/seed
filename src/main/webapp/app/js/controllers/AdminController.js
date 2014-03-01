@@ -1,16 +1,20 @@
-angular.module('myApp').controller('AdminController', function ($scope, HomeService, $log, $rootScope){
+angular.module('myApp').controller('AdminController', function ($scope, AdminService, $log, $rootScope){
     $scope.greeting = 'Hello, world';
-    init();
+
     function init(){
         $scope.roles = getRoles();
-        HomeService.getLoggedInUser().then(function(res){
-            $scope.user = res.data;
-            $scope.userAdmin = ($scope.user.authorities[0].authority == 'ROLE_ADMIN');
-            updateUsers();
-        });
-        $scope.$on('divButton:clicked', function(event, message){
-            alert(message);
-        });
+        $scope.user = AdminService.getUser();
+        if($scope.user){
+            $scope.updateUsers();
+        }else{
+            AdminService.getLoggedInUser().then(function(res){
+                $scope.user = res.data;
+                $scope.updateUsers();
+            });
+        }
+//        $scope.$on('divButton:clicked', function(event, message){
+//            alert(message);
+//        });
 
         $scope.numbers = getNumbers();
     }
@@ -24,9 +28,10 @@ angular.module('myApp').controller('AdminController', function ($scope, HomeServ
         $scope.alerts.splice(index, 1);
     };
 
-    function updateUsers(){
+    $scope.updateUsers = function(){
+        $scope.userAdmin = ($scope.user.auth == 'ROLE_ADMIN');
         $scope.toggleClear();
-        HomeService.getAllUsers().then(function(res){
+        AdminService.getAllUsers().then(function(res){
             $scope.users = res.data;
             //if this is not an admin user, they can only update their own account
             if(!$scope.userAdmin){
@@ -46,10 +51,10 @@ angular.module('myApp').controller('AdminController', function ($scope, HomeServ
     };
 
     $scope.updateCount = function (praiser){
-        HomeService.saveCount(praiser).then(function(res){
+        AdminService.saveCount(praiser).then(function(res){
 //            $rootScope.$broadcast('divButton:clicked', 'hello world via event');
             //updateUsers();
-            $scope.showMessage('success', 'Successfully saved count for user '+ praiser.firstName+'.');
+            $scope.showMessage('success', 'Successfully saved count for '+ praiser.firstName+' to '+ praiser.count +'.');
         });
     };
 
@@ -71,9 +76,9 @@ angular.module('myApp').controller('AdminController', function ($scope, HomeServ
 
     $scope.saveNewUser = function (){
         if($scope.praiser && $scope.praiser.firstName && $scope.passwordConfirm === $scope.praiser.password ){
-            HomeService.saveNewUser($scope.praiser).then(function(res){
+            AdminService.saveNewUser($scope.praiser).then(function(res){
                 $scope.showMessage('success', 'Successfully saved user '+ $scope.praiser.firstName+'.');
-                updateUsers();
+                $scope.updateUsers();
             });
         }
         else{
@@ -82,8 +87,9 @@ angular.module('myApp').controller('AdminController', function ($scope, HomeServ
     };
 
     $scope.deleteUser = function (user){
-        HomeService.deleteUser(user).then(function(res){
-            updateUsers();
+        AdminService.deleteUser(user).then(function(res){
+            $scope.showMessage('success', 'Successfully deleted user '+ user.firstName+'.');
+            $scope.updateUsers();
         });
     };
 
@@ -101,4 +107,7 @@ angular.module('myApp').controller('AdminController', function ($scope, HomeServ
         }
         return numbers;
     }
+
+    //Need to init after all functions have been loaded into the scope.
+    init();
 });

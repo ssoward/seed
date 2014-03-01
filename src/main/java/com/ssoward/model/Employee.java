@@ -8,7 +8,7 @@ package com.ssoward.model;
  * To change this template use File | Settings | File Templates.
  */
 
-public class Users {
+public class Employee {
 
     //{"firstName":"scott","lastName":"soward","email":"amorvivir@yahoo.com","password":"password","passwordConfirm":"password"}
     public Long id;
@@ -60,7 +60,7 @@ public class Users {
     }
 
     public String getPassword() {
-        return password;
+        return "*********";
     }
 
     public void setPassword(String password) {

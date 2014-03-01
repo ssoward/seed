@@ -1,19 +1,13 @@
 package com.ssoward.service;
 
 
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.ssoward.model.Users;
-import org.springframework.beans.factory.annotation.Autowire;
+import com.ssoward.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 
 /**
@@ -32,13 +26,13 @@ public class TestUtil {
         this.template = template;
     }
 
-    public List<Users> getStudentDetails() {
-        List<Users> uList = new ArrayList<Users>();
+    public List<Employee> getStudentDetails() {
+        List<Employee> uList = new ArrayList<Employee>();
         List<Map<String, Object>> l = template.queryForList("select * from user");
         for (Map<String, Object> m : l) {
             String name = (String) m.get("name");
             Long id = ((Integer) m.get("id")).longValue();
-            Users u = new Users();
+            Employee u = new Employee();
             u.setId(id);
             u.setFirstName(name);
             uList.add(u);

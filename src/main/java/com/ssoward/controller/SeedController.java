@@ -1,13 +1,12 @@
 package com.ssoward.controller;
 
-import com.ssoward.model.Users;
+import com.ssoward.model.Employee;
 import com.ssoward.service.TestUtil;
 import com.ssoward.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,13 +42,13 @@ public class SeedController {
 
     @RequestMapping(method = RequestMethod.GET, value="/leaders", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<String> leader(@RequestParam(value = "page", required = false, defaultValue = "0") int page) {
-        List<Users> users = testUtil.getStudentDetails();
+        List<Employee> users = testUtil.getStudentDetails();
         return new ResponseEntity(users, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/loggedIn", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public User testUser(HttpServletRequest request) {
+    public Employee testUser(HttpServletRequest request) {
         return userService.getLoggedInUser();
     }
 

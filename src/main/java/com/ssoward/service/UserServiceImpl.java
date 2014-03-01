@@ -1,6 +1,6 @@
 package com.ssoward.service;
 
-import com.ssoward.model.Users;
+import com.ssoward.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,19 +22,32 @@ public class UserServiceImpl implements UserService {
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public User getLoggedInUser(){
+    public Employee getLoggedInUser(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return user;
+        return getUser(user.getUsername());
     }
 
     @Override
-    public List<Users> getUsers() {
-        List<Users> uList = new ArrayList<Users>();
+    public List<Employee> getUsers() {
+        List<Employee> uList = new ArrayList<Employee>();
         List<Map<String, Object>> l = jdbcTemplate.queryForList("select * from users u join authorities a on a.username = u.username");
+        buildUser(l, uList);
+        return uList;
+    }
+
+    @Override
+    public Employee getUser(String userName) {
+        List<Employee> uList = new ArrayList<Employee>();
+        List<Map<String, Object>> l = jdbcTemplate.queryForList("select * from users u join authorities a on a.username = u.username where a.username = ?", userName);
+        buildUser(l, uList);
+        return uList != null?uList.get(0):null;
+    }
+
+    private void buildUser(List<Map<String, Object>> l, List<Employee> uList) {
         for (Map<String, Object> m : l) {
             String email = (String) m.get("username");
             String auth = (String) m.get("authority");
-            Users u = new Users();
+            Employee u = new Employee();
             u.setFirstName((String) m.get("first_name"));
             u.setLastName((String) m.get("last_name"));
             u.setPassword((String) m.get("password"));
@@ -43,20 +56,32 @@ public class UserServiceImpl implements UserService {
             u.setEmail(email);
             uList.add(u);
         }
-        return uList;
     }
 
     @Override
-    public void saveUser(Users praiser) {
+    public void saveUser(Employee praiser) {
         //check if this is an update to the user
         Integer i = jdbcTemplate.queryForObject("select count(*) from users where username = ?", new Object[] {praiser.getEmail()}, Integer.class);
         if(i == 1){
-            jdbcTemplate.update("update users set first_name = ?, last_name = ?, password = ?, count = ? where username = ?",
-                    praiser.getFirstName(),
-                    praiser.getLastName(),
-                    praiser.getPassword(),
-                    praiser.getCount(),
-                    praiser.getEmail());
+            boolean changePassword = true;
+            //only change password if it has been changed from ****
+            if(praiser.getPassword().indexOf('*') == -1){
+                changePassword = false;
+            }
+            if(changePassword){
+                jdbcTemplate.update("update users set first_name = ?, last_name = ?, password = ?, count = ? where username = ?",
+                        praiser.getFirstName(),
+                        praiser.getLastName(),
+                        praiser.password,
+                        praiser.getCount(),
+                        praiser.getEmail());
+            }else{
+                jdbcTemplate.update("update users set first_name = ?, last_name = ?, count = ? where username = ?",
+                        praiser.getFirstName(),
+                        praiser.getLastName(),
+                        praiser.getCount(),
+                        praiser.getEmail());
+            }
 
             jdbcTemplate.update("update authorities set authority = ? where username = ?",
                     praiser.getAuth(),
@@ -83,7 +108,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUserCount(Users praiser) {
+    public void saveUserCount(Employee praiser) {
         jdbcTemplate.update("update users set count = ? where username = ?", praiser.getCount(), praiser.getEmail());
+    }
+
+    @Override
+    public void decrementCount(String praiser) {
+        jdbcTemplate.update("update users set count = count-1 where username = ?", praiser);
     }
 }

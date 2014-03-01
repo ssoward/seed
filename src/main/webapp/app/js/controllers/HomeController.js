@@ -1,19 +1,12 @@
-angular.module('myApp').controller('HomeController', function ($scope, HomeService, $log){
+angular.module('myApp').controller('HomeController', function ($scope, PraiseService, AdminService, $log){
     $scope.greeting = 'Hello, world';
 
     $scope.compliments = [
         {id:1,name:'Kite Flying - Going above and beyond!'},
         {id:2,name:'Great support when needed it the most!'},
         {id:3,name:'Putting Families first!'},
-        {id:4,name:'Super Hero Clinical Skills'}
-    ];
-
-    $scope.members = [
-        {id:1,name:'Mike David Soward'},
-        {id:2,name:'Adam Michael Soward'},
-        {id:3,name:'Joshua Scott Soward'},
-        {id:4,name:'Ivy Lauren Soward'},
-        {id:5,name:'Micah David Soward'}
+        {id:4,name:'Super Hero Clinical Skills'},
+        {id:4,name:'Other'}
     ];
 
     $scope.history = [
@@ -23,21 +16,45 @@ angular.module('myApp').controller('HomeController', function ($scope, HomeServi
         {date:' 11 Apr 2013', praiser:'Lala' , praisee:'Anna' , praise:$scope.compliments[3].name}
     ];
 
-    init();
     function init(){
-        HomeService.getLoggedInUser().then(function(res){
-            $scope.user = res.data;
-            HomeService.setUser($scope.user);
+        getUser();
+    }
+
+    function getMembers(){
+        AdminService.getAllUsers().then(function(res){
+            $scope.members = res.data;
         });
     }
 
-    $scope.savePraise = function (){
-        $log.debug($scope.newPraisee);
-        $log.debug($scope.newPraise);
+    function getUser(){
+        $scope.user = AdminService.getUser();
+        if(!$scope.user){
+            AdminService.getLoggedInUser().then(function(res){
+                $scope.user = res.data;
+                getMembers();
+            });
+        }else{
+            getMembers();
+        }
+    }
 
-        //        if($scope.proposal.releaseReason.id || $scope.proposal.releaseReasonOtherDesc){
-//            BishopService.saveProposalReleaseReason($scope.proposal.releaseReason.id, $scope.proposal.releaseReasonOtherDesc);
-//        }
+    $scope.savePraise = function (){
+
+        if($scope.newPraise || $scope.newPraiser){
+            $scope.praise = {};
+            $scope.praise.id = null;
+            $scope.praise.praiser= $scope.newPraiser;
+            $scope.praise.praise = $scope.newPraise;
+            $scope.praise.praisee = $scope.user.email;
+            $scope.praise.comment = '';
+            $scope.praise.praiseDt = new Date();
+
+            PraiseService.savePraise($scope.praise).then(function(res){
+                $scope.members = res.data;
+            });
+        }
     };
+
+    init();
 
 });

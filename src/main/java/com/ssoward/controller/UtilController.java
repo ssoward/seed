@@ -1,7 +1,6 @@
 package com.ssoward.controller;
 
-import com.ssoward.model.Users;
-import com.ssoward.service.TestUtil;
+import com.ssoward.model.Employee;
 import com.ssoward.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +32,7 @@ public class UtilController {
 
     @RequestMapping(method = RequestMethod.GET, value="/users", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<String> leader(@RequestParam(value = "page", required = false, defaultValue = "0") int page) {
-        List<Users> users = userService.getUsers();
+        List<Employee> users = userService.getUsers();
         return new ResponseEntity(users, HttpStatus.OK);
     }
 }

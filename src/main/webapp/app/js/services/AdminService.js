@@ -1,11 +1,18 @@
-angular.module('myApp').service('HomeService', function ($http, $log) {
-    var user = {};
+angular.module('myApp').service('AdminService', function ($http, $log) {
+    var user = null;
 
     this.getLoggedInUser = function (){
-        return $http({
-            method: 'GET',
-            url: '/api/loggedIn'
-        });
+        if(user){
+            return user;
+        }else{
+            return $http({
+                method: 'GET',
+                url: '/api/loggedIn'
+            }).then(function(res){
+                user = res.data;
+                return res;
+            });
+        }
     };
 
     this.getAllUsers = function (){
@@ -27,7 +34,7 @@ angular.module('myApp').service('HomeService', function ($http, $log) {
         return $http({
             method: 'POST',
             data: praiser,
-            url: '/api/praiser'
+            url: '/api/employee'
         });
     }
 
@@ -35,7 +42,7 @@ angular.module('myApp').service('HomeService', function ($http, $log) {
         return $http({
             method: 'PUT',
             data: praiser,
-            url: '/api/praiser/count'
+            url: '/api/employee/count'
         });
     }
 
@@ -45,7 +52,7 @@ angular.module('myApp').service('HomeService', function ($http, $log) {
             params: {
                 username: praiser.email
             },
-            url: '/api/praiser'
+            url: '/api/employee'
         });
     }
 
