@@ -36,7 +36,7 @@ angular.module('myApp').controller('AdminController', function ($scope, AdminSer
             //if this is not an admin user, they can only update their own account
             if(!$scope.userAdmin){
                 for(var i = 0; i < $scope.users.length; i++){
-                    if($scope.users[i].email == $scope.user.username){
+                    if($scope.users[i].email == $scope.user.email){
                         $scope.setUser($scope.users[i]);
                     }
                 }
