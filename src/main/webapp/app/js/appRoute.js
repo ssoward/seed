@@ -1,6 +1,4 @@
-var myApp = angular.module('myApp');
-
-myApp.config(function ($stateProvider, $urlRouterProvider) {
+angular.module('myApp').config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/home');
 
     $stateProvider
@@ -8,15 +6,30 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
                 url: '/home',
                 templateUrl: 'partials/home.html',
                 controller: 'HomeController'
-            })
-            .state('view2', {
-                url: '/view2',
-                templateUrl: 'partials/partial2.html',
-                controller: 'HomeController'
-            })
+            });
+
+    //ADMIN states
+    $stateProvider
             .state('admin', {
                 url: '/admin',
-                templateUrl: 'partials/admin.html',
-                controller: 'AdminController'
-            });
+                abstract: true,
+                templateUrl: 'partials/admin/admin.html'
+            })
+//            .state('admin.home', {
+//                url: '/home',
+//                templateUrl: 'partials/admin.html',
+//                controller: 'AdminController'
+//            })
+            .state('admin.users', {
+                url: '/users',
+                templateUrl: 'partials/admin/userAdmin.html',
+                controller: 'AdminUsersController'
+            })
+            .state('admin.compliments', {
+                url: '/compliments',
+                templateUrl: 'partials/admin/complimentAdmin.html',
+                controller: 'AdminComplimentsController'
+            })
+    ;
+
 });

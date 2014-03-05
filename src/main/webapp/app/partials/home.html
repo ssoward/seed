@@ -1,8 +1,8 @@
 <div>
     <span class="panel-title h1">Points</span>
     <ul class="nav">
-        <li>Total points received </li>
-        <li>Total points to bid {{ user.count }}</li>
+        <li>Total YV Bucks Received </li>
+        <li>Total Compliments to Give {{ user.count }}</li>
     </ul>
 </div>
 <br>
@@ -10,17 +10,22 @@
     <div data-ng-show="user.count>0">
         <div class="row">
             <div class="form-group col-md-2">
-                <label for="peer">Please select a peer:</label>
+                <label for="peer">Please Select a Peer:</label>
                 <select ng-model="newPraisee" name="reason" id="peer" class="form-control"
                         ng-options="mem.email as mem.firstName + ' ' + mem.lastName for mem in members">
                 </select>
             </div>
 
             <div class="form-group col-md-3">
-                <label for="releaseReason">Please select a compliment:</label>
-                <select ng-model="newPraise" name="reason" id="releaseReason" class="form-control"
+                <label for="releaseCompliment">Please Select a Compliment:</label>
+                <select ng-model="newPraise" name="reason" id="releaseCompliment" class="form-control"
                         ng-options="comp.id as comp.name for comp in compliments">
                 </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-lg-10">
+                <textarea maxlength="150" ng-model="newComment" name="message" id="comments" placeholder="Additional Comments"></textarea>
             </div>
         </div>
         <div class="row">
@@ -32,38 +37,47 @@
             </div>
         </div>
     </div>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
     <div data-ng-hide="user.count>0">
         <div class="panel-title h2">You have no remaining points to give.</div>
     </div>
     <div class="form-group">
         <span class="panel-title h2">History</span>
-        <table class="table table-striped table-bordered" role="menu">
-            <tbody>
-            <th class="col-narrow-0">----</th>
-            <th>Date</th>
-            <th>Praiser</th>
-            <th>Praisee</th>
-            <th>Praise</th>
+        <div>&nbsp;</div>
+        <div class="table-responsive" role="menu">
+            <div class="my-row row">
+                <div data-ng-show="userAdmin" class="col-sm-1">Delete</div>
+                <div class="col-sm-1"><a href="" ng-click="predicate = 'praiseDt'; reverse=false">Date</a></div>
+                <div class="col-sm-2"><a href="" ng-click="predicate = 'praiser'; reverse=false">Praiser</a></div>
+                <div class="col-sm-2"><a href="" ng-click="predicate = 'praisee'; reverse=false">Praisee</a></div>
+                <div class="col-sm-3">Praise</div>
+                <div class="col-sm-2"><a href="" ng-click="predicate = 'comment'; reverse=false">Comments</a></div>
+            </div>
 
-            <tr ng-repeat="praise in praises">
-                <td class="col-narrow-0">
-                    <button tooltip="Delete Praise" class="btn btn-danger" ng-click="deletePraise(praise)" value="delete"/>
-                </td>
-                <td class="col-narrow h6">
-                    {{praise.praiseDt}}
-                </td>
-                <td class="col-medium">
-                    {{praise.praiser}}
-                </td>
-                <td class="col-medium">
-                    {{praise.praisee}}
-                </td>
-                <td>
-                    {{compliments[praise.praise].name}}
-                </td>
-            </tr>
-            </tbody>
-        </table>
+            <div class="my-row row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="praise in praises | orderBy:predicate:true">
+                <div >
+                    <div class="col-sm-1" data-ng-show="userAdmin">
+                        <button tooltip="Delete Praise" class="btn btn-danger" ng-click="deletePraise(praise)" value="delete"/>
+                    </div>
+                    <div class="col-sm-1 h6">
+                        {{praise.praiseDt}}
+                    </div>
+                    <div class="col-sm-2 h6">
+                        {{praise.praiser}}
+                    </div>
+                    <div class="col-md-2 h6">
+                        {{praise.praisee}}
+                    </div>
+                    <div class="col-sm-3 h6">
+                        {{compliments[praise.praise].name}}
+                    </div>
+                    <div class="col-sm-2 h6">
+                        {{praise.comment}}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -29,6 +29,42 @@
     padding: 0;
 }
 
+#comments {
+    padding: 1em;
+    font-size: 1em;
+    height: 12em;
+    max-height: 7em;
+    width: 100%;
+    max-width: 700px;
+    border: #ddd 2px solid;
+}
+
+.my-show-hide-animation.ng-hide-add,
+.my-show-hide-animation.ng-hide-remove {
+  -webkit-transition:1s linear all;
+  transition:1s linear all;
+
+  /* remember to add this */
+  display:block!important;
+  opacity:1;
+}
+.my-show-hide-animation.ng-hide {
+  opacity:0;
+}
+
+.my-row{
+    width: 90%;
+    border: solid 1px #aaa;
+    left: 10px;
+    padding: 10px;
+    position: relative;
+}
+.even {
+    background-color: #FFFFFF;
+}
+.odd {
+    background-color: #EEEEEe;
+}
 .col-narrow-0{
     width: 4.333333333333332%;
 }

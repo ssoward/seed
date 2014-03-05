@@ -1,5 +1,6 @@
-angular.module('myApp').controller('AdminController', function ($scope, AdminService, $log, $rootScope){
+angular.module('myApp').controller('AdminUsersController', function ($scope, AdminService, $log, $rootScope){
     $scope.greeting = 'Hello, world';
+    $scope.newUsersShow = false;
 
     function init(){
         $scope.roles = getRoles();
@@ -23,6 +24,13 @@ angular.module('myApp').controller('AdminController', function ($scope, AdminSer
 //        { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
 //        { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
     ];
+
+    $scope.toggleNewUser = function() {
+        $scope.newUsersShow = !$scope.newUsersShow;
+        if(!$scope.newUserShow){
+            $scope.toggleClear();
+        }
+    };
 
     $scope.closeAlert = function(index) {
         $scope.alerts.splice(index, 1);
@@ -68,6 +76,7 @@ angular.module('myApp').controller('AdminController', function ($scope, AdminSer
     }
 
     $scope.setUser = function (user){
+        $scope.newUsersShow = true;
         $scope.editUser = true;
         $scope.praiser = user;
         $scope.passwordConfirm = user.password;

@@ -14,7 +14,6 @@ import java.util.List;
  * Created by ssoward on 3/1/14.
  */
 
-
 @Service
 public class PraiseServiceImpl implements PraiseService {
 

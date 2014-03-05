@@ -20,11 +20,14 @@ angular.module('myApp').controller('HomeController', function ($scope, PraiseSer
     }
 
     $scope.compliments = [
-        {id:1,name:'Kite Flying - Going above and beyond!'},
-        {id:2,name:'Great support when needed it the most!'},
-        {id:3,name:'Putting Families first!'},
-        {id:4,name:'Super Hero Clinical Skills'},
-        {id:4,name:'Other'}
+        {id:1,name:'The Force for Familes - Getting it done when the family needed it the most!'},
+        {id:2,name:'Evidentiary Family Restoration - Getting a youth home and keeping it that way!'},
+        {id:3,name:'Super Hero - Great support when needed it the most!'},
+        {id:4,name:'Flying High - Clinical skill beyond compare!'},
+        {id:5,name:'Kite Flying - Going above and beyond!'},
+        {id:6,name:'Great support when needed it the most!'},
+        {id:7,name:'Putting Families first!'},
+        {id:8,name:'Super Hero Clinical Skills'}
     ];
 
 //    $scope.history = [
@@ -51,6 +54,12 @@ angular.module('myApp').controller('HomeController', function ($scope, PraiseSer
         });
     }
 
+    function clearPraise(){
+        $scope.newPraise = null;
+        $scope.newPraisee= null;
+        $scope.newComment= null;
+    }
+
     function getUser(){
         $scope.user = AdminService.getUser();
         AdminService.getLoggedInUser().then(function(res){
@@ -72,15 +81,17 @@ angular.module('myApp').controller('HomeController', function ($scope, PraiseSer
             $scope.praise = {};
             $scope.praise.id = null;
             $scope.praise.praiser= $scope.user.email;
-            $scope.praise.praise = $scope.newPraise;
+            $scope.praise.praise =  $scope.newPraise;
             $scope.praise.praisee = $scope.newPraisee;
-            $scope.praise.comment = '';
+            $scope.praise.comment = $scope.newComment;
             $scope.praise.praiseDt = new Date();
+            $log.debug($scope.praise.comment);
 
             PraiseService.savePraise($scope.praise).then(function(res){
                 $scope.showMessage('success', 'Successfully saved praise for '+ $scope.newPraisee+'.');
                 getUser();
                 getPraises();
+                clearPraise();
             });
         }
     };

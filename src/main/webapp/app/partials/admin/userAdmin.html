@@ -2,7 +2,8 @@
     <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 </div>
 
-<div class="container">
+<a ng-click="toggleNewUser()">Add/Edit User</a>
+<div ng-show="newUsersShow" class="container my-show-hide-animation">
     <div class="row centered-form">
         <div class="col-xs-12 col-sm-8 col-md-4">
             <div class="panel panel-default">
