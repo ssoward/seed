@@ -1,4 +1,38 @@
 <div>
     <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 </div>
-        TODO add compliments CRUD
+
+<div>
+    <div class="row">
+        <div class="form-group col-lg-10">
+            <textarea maxlength="150" ng-model="newCompliment" name="message" id="comments" placeholder="Add Compliment"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <ul class="list-inline col-md-4">
+                <li><a ng-click="save()" class="btn btn-primary">Save</a></li>
+                <li><a ng-click="clear()" class="btn btn-default">Cancel</a></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+<div class="table-responsive" role="menu">
+    <div class="my-row row">
+        <div data-ng-show="userAdmin" class="col-sm-1">Cancel</div>
+        <div class="col-sm-1">Delete</div>
+        <div class="col-sm-1"><a href="" ng-click="predicate = 'praiseDt'; reverse=false">Name</a></div>
+    </div>
+
+    <div class="my-row row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="comp in compliments | orderBy:predicate:true">
+        <div data-ng-show="userAdmin" class="col-sm-1">Cancel</div>
+        <div class="col-sm-1">
+            <button tooltip="Delete Compliment" class="btn btn-danger" ng-click="deleteCompliment(comp)" value="delete"/>
+        </div>
+        <div class="col-lg-10">
+            {{comp.name}}
+        </div>
+    </div>
+</div>
