@@ -22,12 +22,20 @@ public class PraiseServiceImpl implements PraiseService {
 
     @Override
     public List<Praise> getPraises() {
-        List<Praise> l = jdbcTemplate.query("select * from praise", new RowMapper() {
+        String sql = "select \n" +
+                "  z.first_name as perfirst,\n" +
+                "  z.last_name as perlast,\n" +
+                "  u.first_name as peefirst,\n" +
+                "  u.last_name as peelast, p.*\n" +
+                "  from praise p \n" +
+                "      join users u on u.username = p.praisee\n" +
+                "      join users z on u.username = p.praiser";
+        List<Praise> l = jdbcTemplate.query(sql, new RowMapper() {
             @Override public Praise mapRow(ResultSet rs, int i) throws SQLException {
                 Praise prop = new Praise();
                 prop.setId(rs.getLong("id"));
-                prop.setPraiser(rs.getString("praiser"));
-                prop.setPraisee(rs.getString("praisee"));
+                prop.setPraiser(rs.getString("perfirst") +" "+rs.getString("perlast"));
+                prop.setPraisee(rs.getString("peefirst")+" "+rs.getString("peelast"));
                 prop.setComment(rs.getString("comment"));
                 prop.setPraise(rs.getString("praise"));
                 prop.setPraiseDt(rs.getDate("praise_dt"));

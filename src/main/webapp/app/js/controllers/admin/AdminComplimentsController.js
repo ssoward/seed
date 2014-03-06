@@ -5,7 +5,7 @@ angular.module('myApp').controller('AdminComplimentsController', function ($scop
                 .then(function(res){
                     $scope.compliments = res.data;
                 });
-    }
+    };
 
     //Need to init after all functions have been loaded into the scope.
     init();
@@ -16,7 +16,6 @@ angular.module('myApp').controller('AdminComplimentsController', function ($scop
     ];
 
     $scope.save = function() {
-        $log.debug($scope.newCompliment);
         $scope.compliment = {name:$scope.newCompliment};
 
         ComplimentService.saveCompliments($scope.compliment)
@@ -37,8 +36,8 @@ angular.module('myApp').controller('AdminComplimentsController', function ($scop
                                 $scope.compliments = res.data;
                             });
                 });
+    };
 
-    }
     $scope.closeAlert = function(index) {
         $scope.alerts.splice(index, 1);
     };

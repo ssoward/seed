@@ -1,4 +1,4 @@
-angular.module('myApp').controller('HomeController', function ($scope, PraiseService, AdminService, $log){
+angular.module('myApp').controller('HomeController', function ($scope, ComplimentService, PraiseService, AdminService, $log){
     $scope.greeting = 'Hello, world';
 
     $scope.alerts = [
@@ -19,27 +19,17 @@ angular.module('myApp').controller('HomeController', function ($scope, PraiseSer
         $scope.alerts.push({type: typee, msg: msgg});
     }
 
-    $scope.compliments = [
-        {id:1,name:'The Force for Familes - Getting it done when the family needed it the most!'},
-        {id:2,name:'Evidentiary Family Restoration - Getting a youth home and keeping it that way!'},
-        {id:3,name:'Super Hero - Great support when needed it the most!'},
-        {id:4,name:'Flying High - Clinical skill beyond compare!'},
-        {id:5,name:'Kite Flying - Going above and beyond!'},
-        {id:6,name:'Great support when needed it the most!'},
-        {id:7,name:'Putting Families first!'},
-        {id:8,name:'Super Hero Clinical Skills'}
-    ];
-
-//    $scope.history = [
-//        {date:' 11 Apr 2013', praiser:'Scott', praisee:'Larry', praise:$scope.compliments[0].name},
-//        {date:' 11 Apr 2013', praiser:'Mike' , praisee:'Myra' , praise:$scope.compliments[1].name},
-//        {date:' 11 Apr 2013', praiser:'Ike'  , praisee:'Adam' , praise:$scope.compliments[2].name},
-//        {date:' 11 Apr 2013', praiser:'Lala' , praisee:'Anna' , praise:$scope.compliments[3].name}
-//    ];
-
     function init(){
         getUser();
         getPraises();
+        getCompliments();
+    }
+
+    function getCompliments(){
+        ComplimentService.getAllCompliments()
+                .then(function(res){
+                    $scope.compliments = res.data;
+                });
     }
 
     function getMembers(){
