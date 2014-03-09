@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
         Employee emp = uList != null?uList.get(0):null;
         if(emp != null){
             emp.setGives(giveService.getGives(userName));
+            emp.setUnspentCount(SeedUtil.getUnusedGives(emp));
         }
         return emp;
     }
@@ -158,6 +159,20 @@ public class UserServiceImpl implements UserService {
         for(Give gives: praiser.getGives()){
             if(gives.getId() == null){
                 giveService.saveGive(gives);
+            }
+        }
+    }
+
+    @Override
+    public void decrementCount(String praiser, Long praise) {
+        Employee emp = getLoggedInUser();
+        for(Give g: emp.getGives()){
+            if(g.getStatus().equals(GivesStatusEnum.TOBE_GIVEN)){
+                g.setStatus(GivesStatusEnum.GIVEN);
+                g.setGivenDt(new Date());
+                g.setPraise(praise);
+                giveService.updateGive(g);
+                break;
             }
         }
     }

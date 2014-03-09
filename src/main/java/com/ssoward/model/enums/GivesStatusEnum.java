@@ -18,20 +18,20 @@ public enum GivesStatusEnum {
 
     }
 
-    public static GivesStatusEnum getForLabel(String status) {
+    public static GivesStatusEnum getForName(String status) {
         for(GivesStatusEnum gse: GivesStatusEnum.values()){
-            if(gse.label.equals(status)){
+            if(gse.name().equals(status)){
                 return gse;
             }
         }
         return null;
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    public Long getId() {
-        return id;
-    }
+//    public String getLabel() {
+//        return label;
+//    }
+//
+//    public Long getId() {
+//        return id;
+//    }
 }

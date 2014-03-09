@@ -11,6 +11,7 @@ import java.util.Date;
 public class Give {
 
     Long id;
+    Long praise;
     String user;
     Date receivedDt;
     Date givenDt;
@@ -81,5 +82,14 @@ public class Give {
 
     public void setSpentDt(Date spentDt) {
         this.spentDt = spentDt;
+    }
+
+
+    public Long getPraise() {
+        return praise;
+    }
+
+    public void setPraise(Long praise) {
+        this.praise = praise;
     }
 }

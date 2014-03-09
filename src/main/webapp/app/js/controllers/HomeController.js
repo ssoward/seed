@@ -75,7 +75,6 @@ angular.module('myApp').controller('HomeController', function ($scope, Complimen
             $scope.praise.praisee = $scope.newPraisee;
             $scope.praise.comment = $scope.newComment;
             $scope.praise.praiseDt = new Date();
-            $log.debug($scope.praise.comment);
 
             PraiseService.savePraise($scope.praise).then(function(res){
                 $scope.showMessage('success', 'Successfully saved praise for '+ $scope.newPraisee+'.');

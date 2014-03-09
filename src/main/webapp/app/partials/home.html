@@ -2,12 +2,12 @@
     <span class="panel-title h1">Points</span>
     <ul class="nav">
         <li>Total YV Bucks Received </li>
-        <li>Total Compliments to Give {{ user.count }}</li>
+        <li>Total Compliments to Give {{ user.unspentCount }}</li>
     </ul>
 </div>
 <br>
 <div class="table">
-    <div data-ng-show="user.count>0">
+    <div data-ng-show="user.unspentCount>0">
         <div class="row">
             <div class="form-group col-md-2">
                 <label for="peer">Please Select a Peer:</label>
@@ -39,7 +39,7 @@
     </div>
     <div>&nbsp;</div>
     <div>&nbsp;</div>
-    <div data-ng-hide="user.count>0">
+    <div data-ng-hide="user.unspentCount>0">
         <div class="panel-title h2">You have no remaining points to give.</div>
     </div>
     <div class="form-group">

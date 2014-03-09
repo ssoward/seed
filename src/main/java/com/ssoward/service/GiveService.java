@@ -18,4 +18,6 @@ public interface GiveService {
     public List<Give> getGives();
 
     boolean hasMonthlyGives(Employee employee);
+
+    void updateGive(Give g);
 }

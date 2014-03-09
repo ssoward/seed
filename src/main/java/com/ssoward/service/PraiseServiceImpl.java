@@ -3,12 +3,27 @@ package com.ssoward.service;
 import com.ssoward.model.Praise;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 /**
  * Created by ssoward on 3/1/14.
@@ -46,13 +61,30 @@ public class PraiseServiceImpl implements PraiseService {
     }
 
     @Override
-    public void savePraise(Praise praise) {
-        jdbcTemplate.update("insert into praise values (null,?,?,?,?, now())",
-                praise.getPraiser(),
-                praise.getPraisee(),
-                praise.getComment(),
-                praise.getPraise()
-        );
+    public Long savePraise(final Praise praise) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        final String sql = "insert into praise values (null,?,?,?,?, now())";
+
+        jdbcTemplate.update(new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement preparedStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setString(1, praise.getPraiser());
+                preparedStatement.setString(2, praise.getPraisee());
+                preparedStatement.setString(3, praise.getComment());
+                preparedStatement.setString(4, praise.getPraise());
+                return preparedStatement;
+            }
+        }, keyHolder);
+//        jdbcTemplate.update(sql,
+//                new Object[]{praise.getPraiser(),
+//                praise.getPraisee(),
+//                praise.getComment(),
+//                praise.getPraise()}, keyHolder
+//        );
+
+        Long id = keyHolder.getKey().longValue();
+        return id;
     }
 
     @Override

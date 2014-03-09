@@ -1,6 +1,7 @@
 package com.ssoward.controller;
 
 
+import com.ssoward.model.Employee;
 import com.ssoward.model.Praise;
 import com.ssoward.service.PraiseService;
 import com.ssoward.service.TestUtil;
@@ -39,7 +40,8 @@ public class PraiseController {
     @RequestMapping(method = RequestMethod.POST, value="/praise", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity savePraise(@RequestBody Praise praise) {
         if(praise != null){
-            praiseService.savePraise(praise);
+            Long id = praiseService.savePraise(praise);
+            userService.decrementCount(praise.getPraiser(), id);
         }
         return new ResponseEntity(HttpStatus.CREATED);
     }

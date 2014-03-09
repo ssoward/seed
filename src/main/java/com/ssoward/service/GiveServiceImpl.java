@@ -26,14 +26,15 @@ public class GiveServiceImpl implements GiveService{
 
     @Override
     public void saveGive(Give give) {   //id user receivedDt givenDt receivedBy status giveType spentDt
-        jdbcTemplate.update("insert into give values (null,?,?,?,?,?,?,?)",
+        jdbcTemplate.update("insert into give values (null,?,?,?,?,?,?,?,?)",
                 give.getUser(),
                 give.getReceivedDt(),
                 give.getGivenDt(),
                 give.getReceivedBy(),
-                give.getStatus().getLabel(),
-                give.getType().getLabel(),
-                give.getSpentDt()
+                give.getStatus().name(),
+                give.getType().name(),
+                give.getSpentDt(),
+                give.getPraise()
         );
     }
 
@@ -81,6 +82,12 @@ public class GiveServiceImpl implements GiveService{
         return yes>0;
     }
 
+    @Override
+    public void updateGive(Give g) {
+        jdbcTemplate.update("update give set receivedDt = ?, givenDt = ?, receivedBy = ?, status = ?, giveType = ?, spentDt = ?, praise = ? where id = ?",
+                g.getReceivedDt(), g.getGivenDt(), g.getReceivedBy(), g.getStatus().name(), g.getType().name(), g.getSpentDt(), g.getPraise(), g.getId());
+    }
+
 
     private void buildGive(List<Map<String, Object>> l, List<Give> uList) {
         if(l != null){
@@ -91,9 +98,10 @@ public class GiveServiceImpl implements GiveService{
                 u.setReceivedDt((Date) m.get("receivedDt"));
                 u.setGivenDt((Date) m.get("givenDt"));
                 u.setReceivedBy((String) m.get("receivedBy"));
-                u.setStatus(GivesStatusEnum.getForLabel((String)m.get("status")));
-                u.setType(GivesTypeEnum.getForLabel((String) m.get("giveType")));
+                u.setStatus(GivesStatusEnum.getForName((String)m.get("status")));
+                u.setType(GivesTypeEnum.getForName((String) m.get("giveType")));
                 u.setSpentDt((Date) m.get("spentDt"));
+                try{u.setPraise(((Integer) m.get("praise")).longValue());}catch(NullPointerException e){/*null value*/}
                 uList.add(u);
             }
         }

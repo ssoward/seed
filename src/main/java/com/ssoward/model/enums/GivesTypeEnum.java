@@ -17,20 +17,20 @@ public enum GivesTypeEnum {
     }
 
 
-    public static GivesTypeEnum getForLabel(String status) {
+    public static GivesTypeEnum getForName(String status) {
         for(GivesTypeEnum gse: GivesTypeEnum.values()){
-            if(gse.label.equals(status)){
+            if(gse.name().equals(status)){
                 return gse;
             }
         }
         return null;
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    public Long getId() {
-        return id;
-    }
+//    public String getLabel() {
+//        return label;
+//    }
+//
+//    public Long getId() {
+//        return id;
+//    }
 }

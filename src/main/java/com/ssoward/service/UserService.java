@@ -16,4 +16,6 @@ public interface UserService {
     void saveUser(Employee praiser);
     void deleteUser(String username);
     void saveUserCount(Employee praiser);
+
+    void decrementCount(String praiser, Long praise);
 }
