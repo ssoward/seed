@@ -12,10 +12,8 @@ import java.util.List;
 public interface UserService {
     Employee getLoggedInUser();
     List<Employee> getUsers();
-    public List<Give> getGives();
     Employee getUser(String userName);
     void saveUser(Employee praiser);
     void deleteUser(String username);
     void saveUserCount(Employee praiser);
-    void decrementCount(String praiser);
 }

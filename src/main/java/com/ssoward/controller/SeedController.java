@@ -1,6 +1,7 @@
 package com.ssoward.controller;
 
 import com.ssoward.model.Employee;
+import com.ssoward.service.ScheduledTaskService;
 import com.ssoward.service.TestUtil;
 import com.ssoward.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class SeedController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    ScheduledTaskService scheduledTaskService;
+
     @RequestMapping(method = RequestMethod.GET, value="/scouts", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getscout(@RequestParam(value = "page", required = false, defaultValue = "0") int page) {
         return "hello world, you must be a scout or at least have the right permissions."; //new ResponseEntity<>("hello scout", HttpStatus.OK);
@@ -49,6 +53,7 @@ public class SeedController {
     @RequestMapping(method = RequestMethod.GET, value = "/loggedIn", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Employee testUser(HttpServletRequest request) {
+        scheduledTaskService.loadUserTasks();
         return userService.getLoggedInUser();
     }
 

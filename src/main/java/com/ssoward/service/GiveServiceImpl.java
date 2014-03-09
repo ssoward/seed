@@ -1,9 +1,15 @@
 package com.ssoward.service;
 
+import com.ssoward.model.Employee;
 import com.ssoward.model.Give;
+import com.ssoward.model.enums.GivesStatusEnum;
+import com.ssoward.model.enums.GivesTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 /**
  * Created by ssoward on 3/5/14.
@@ -34,5 +40,62 @@ public class GiveServiceImpl implements GiveService{
     @Override
     public void deleteSave(Long id) {
         jdbcTemplate.update("delete from give where id = ?", id);
+    }
+
+    @Override
+    public void createGive(GivesTypeEnum gtEnum, String user) {
+        Give g = new Give();
+        g.setType(gtEnum);
+        g.setStatus(GivesStatusEnum.TOBE_GIVEN);
+        g.setReceivedBy(gtEnum.name());
+        g.setReceivedDt(new Date());
+        g.setUser(user);
+        saveGive(g);
+    }
+
+    @Override
+    public List<Give> getGives(String userName) {
+        List<Give> uList = new ArrayList<Give>();
+        List<Map<String, Object>> l = null;
+        if(userName != null){
+            l = jdbcTemplate.queryForList("select * from give where user = ? ", userName);
+        }else{
+            l = jdbcTemplate.queryForList("select * from give");
+        }
+        buildGive(l, uList);
+        return uList;
+    }
+
+
+    @Override
+    public List<Give> getGives() {
+        return getGives(null);
+    }
+
+    @Override
+    public boolean hasMonthlyGives(Employee employee) {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH)+1;
+        int yes = jdbcTemplate.queryForObject("select count(*) from give where year(receivedDt) = ? and month(receivedDt) = ? and user=?", new Object[]{year, month, employee.getEmail()}, Integer.class);
+        return yes>0;
+    }
+
+
+    private void buildGive(List<Map<String, Object>> l, List<Give> uList) {
+        if(l != null){
+            for (Map<String, Object> m : l) {
+                Give u = new Give();
+                u.setId(((Integer) m.get("id")).longValue());
+                u.setUser((String) m.get("user"));
+                u.setReceivedDt((Date) m.get("receivedDt"));
+                u.setGivenDt((Date) m.get("givenDt"));
+                u.setReceivedBy((String) m.get("receivedBy"));
+                u.setStatus(GivesStatusEnum.getForLabel((String)m.get("status")));
+                u.setType(GivesTypeEnum.getForLabel((String) m.get("giveType")));
+                u.setSpentDt((Date) m.get("spentDt"));
+                uList.add(u);
+            }
+        }
     }
 }

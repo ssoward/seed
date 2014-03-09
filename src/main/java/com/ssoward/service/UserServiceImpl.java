@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         List<Employee> uList = new ArrayList<Employee>();
         List<Map<String, Object>> l = jdbcTemplate.queryForList("select * from users u join authorities a on a.username = u.username");
         buildUser(l, uList);
-        List<Give> gives = getGives();
+        List<Give> gives = giveService.getGives();
         for(Give g: gives){
             for(Employee e: uList){
                 if(g.getUser().equals(e.getEmail())){
@@ -56,48 +56,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<Give> getGives() {
-        List<Give> uList = new ArrayList<Give>();
-        List<Map<String, Object>> l = jdbcTemplate.queryForList("select * from give");
-        buildGive(l, uList);
-        return uList;
-    }
-
-
-//    public Integer getUnspentCount() {
-//        int i = 0;
-//        if(gives!= null){
-//            for(Give g: gives){
-//                if(GivesStatusEnum.TOBE_GIVEN.equals(g.getStatus())){
-//                    i++;
-//                }
-//            }
-//        }
-//        return i;
-//    }
-
-    @Override
     public Employee getUser(String userName) {
         List<Employee> uList = new ArrayList<Employee>();
         List<Map<String, Object>> l = jdbcTemplate.queryForList("select * from users u join authorities a on a.username = u.username where a.username = ?", userName);
         buildUser(l, uList);
-        return uList != null?uList.get(0):null;
+        Employee emp = uList != null?uList.get(0):null;
+        if(emp != null){
+            emp.setGives(giveService.getGives(userName));
+        }
+        return emp;
     }
 
-    private void buildGive(List<Map<String, Object>> l, List<Give> uList) {
-        for (Map<String, Object> m : l) {
-            Give u = new Give();
-            u.setId(((Integer) m.get("id")).longValue());
-            u.setUser((String) m.get("user"));
-            u.setReceivedDt((Date) m.get("receivedDt"));
-            u.setGivenDt((Date) m.get("givenDt"));
-            u.setReceivedBy((String) m.get("receivedBy"));
-            u.setStatus(GivesStatusEnum.getForLabel((String)m.get("status")));
-            u.setType(GivesTypeEnum.getForLabel((String) m.get("giveType")));
-            u.setSpentDt((Date) m.get("spentDt"));
-            uList.add(u);
-        }
-    }
     private void buildUser(List<Map<String, Object>> l, List<Employee> uList) {
         for (Map<String, Object> m : l) {
             String email = (String) m.get("username");
@@ -158,13 +127,7 @@ public class UserServiceImpl implements UserService {
             if(unspentCount<praiser.unspentCount){
                 while(unspentCount<praiser.unspentCount){
                     unspentCount++;
-                    Give g = new Give();
-                    g.setType(GivesTypeEnum.ADMIN);
-                    g.setStatus(GivesStatusEnum.TOBE_GIVEN);
-                    g.setReceivedBy(GivesTypeEnum.ADMIN.name());
-                    g.setReceivedDt(new Date());
-                    g.setUser(praiser.email);
-                    giveService.saveGive(g);
+                    giveService.createGive(GivesTypeEnum.ADMIN, praiser.email);
                 }
             }else if(unspentCount>praiser.unspentCount){
                 while(unspentCount>=praiser.unspentCount){
@@ -199,8 +162,4 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public void decrementCount(String praiser) {
-        //jdbcTemplate.update("update users set count = count-1 where username = ?", praiser);
-    }
 }

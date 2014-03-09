@@ -1,7 +1,6 @@
 package com.ssoward.controller;
 
 
-import com.ssoward.model.Employee;
 import com.ssoward.model.Praise;
 import com.ssoward.service.PraiseService;
 import com.ssoward.service.TestUtil;
@@ -41,7 +40,6 @@ public class PraiseController {
     public ResponseEntity savePraise(@RequestBody Praise praise) {
         if(praise != null){
             praiseService.savePraise(praise);
-            userService.decrementCount(praise.getPraiser());
         }
         return new ResponseEntity(HttpStatus.CREATED);
     }
