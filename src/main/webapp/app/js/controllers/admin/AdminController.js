@@ -8,9 +8,9 @@ angular.module('myApp').controller('AdminController', function ($scope, AdminSer
 
     $scope.isActive = function(page){
         return $state.current.name == page;
-    }
+    };
+
     $scope.getLink = function(page){
         $location.path(page);
-
-    }
+    };
 });

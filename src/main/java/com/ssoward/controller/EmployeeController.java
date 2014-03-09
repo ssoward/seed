@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 /**
  * Created by ssoward on 3/1/14.
  */
@@ -51,5 +53,14 @@ public class EmployeeController {
     public ResponseEntity deleteEmployee(@RequestParam String username) {
         userService.deleteUser(username);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value="/employees", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<String> leader(@RequestParam(value = "page", required = false, defaultValue = "0") int page) {
+        List<Employee> users = userService.getUsers();
+        for(Employee emp: users){
+            emp.setPassword("************");
+        }
+        return new ResponseEntity(users, HttpStatus.OK);
     }
 }

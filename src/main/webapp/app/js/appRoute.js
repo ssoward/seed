@@ -22,12 +22,17 @@ angular.module('myApp').config(function ($stateProvider, $urlRouterProvider) {
 //            })
             .state('admin.users', {
                 url: '/users',
-                templateUrl: 'partials/admin/userAdmin.html',
+                templateUrl: 'partials/admin/employeeAdmin.html',
                 controller: 'AdminUsersController'
             })
             .state('admin.compliments', {
                 url: '/compliments',
                 templateUrl: 'partials/admin/complimentAdmin.html',
+                controller: 'AdminComplimentsController'
+            })
+            .state('admin.give', {
+                url: '/give',
+                templateUrl: 'partials/admin/pointsToGiveAdmin.html',
                 controller: 'AdminComplimentsController'
             })
     ;

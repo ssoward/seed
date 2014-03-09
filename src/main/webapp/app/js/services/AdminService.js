@@ -14,7 +14,7 @@ angular.module('myApp').service('AdminService', function ($http, $log) {
     this.getAllUsers = function (){
         return $http({
             method: 'GET',
-            url: '/users'
+            url: '/api/employees'
         });
     };
 

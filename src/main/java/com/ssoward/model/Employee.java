@@ -1,5 +1,9 @@
 package com.ssoward.model;
 
+import com.ssoward.model.enums.GivesStatusEnum;
+
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: ssoward
@@ -10,14 +14,14 @@ package com.ssoward.model;
 
 public class Employee {
 
-    //{"firstName":"scott","lastName":"soward","email":"amorvivir@yahoo.com","password":"password","passwordConfirm":"password"}
     public Long id;
     public String firstName;
     public String lastName;
     public String auth;
     public String email;
     public String password;
-    private Integer count;
+    public List<Give> gives;
+    public Integer unspentCount;
 
     public String getFirstName() {
         return firstName;
@@ -60,18 +64,26 @@ public class Employee {
     }
 
     public String getPassword() {
-        return "*********";
+        return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public Integer getCount() {
-        return count;
+    public List<Give> getGives() {
+        return gives;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setGives(List<Give> gives) {
+        this.gives = gives;
+    }
+
+    public Integer getUnspentCount() {
+        return unspentCount;
+    }
+
+    public void setUnspentCount(Integer unspentCount) {
+        this.unspentCount = unspentCount;
     }
 }

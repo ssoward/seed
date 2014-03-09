@@ -110,7 +110,7 @@ angular.module('myApp').controller('AdminUsersController', function ($scope, Adm
 
     function getNumbers(){
         var numbers = [];
-        for(var i = 0; i < 101; i++){
+        for(var i = 0; i < 11; i++){
             numbers.push({name: i+'', value: i+''});
         }
         return numbers;

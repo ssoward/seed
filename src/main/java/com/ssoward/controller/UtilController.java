@@ -30,9 +30,4 @@ public class UtilController {
         request.getSession().invalidate();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value="/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<String> leader(@RequestParam(value = "page", required = false, defaultValue = "0") int page) {
-        List<Employee> users = userService.getUsers();
-        return new ResponseEntity(users, HttpStatus.OK);
-    }
 }

@@ -14,10 +14,11 @@
         <div>
             <body>
             <ul class="nav nav-tabs" id="myTab" data-ng-controller="AdminController">
-                <li ng-class="{active:isActive('admin.users')}">      <a ng-click="getLink('/admin/users')">Users</a></li>
-                <li ng-class="{active:isActive('admin.compliments')}"><a ng-click="getLink('/admin/compliments')">Compliments</a></li>
-                <li ng-class="{active:isActive('tab03')}">            <a ng-click="getLink('tab03')">Awards</a></li>
-                <li ng-class="{active:isActive('tab04')}">            <a ng-click="getLink('tab04')">Settings</a></li>
+                <li ng-class="{active:isActive('admin.users')}">         <a ng-click="getLink('/admin/users')">Users</a></li>
+                <li ng-class="{active:isActive('admin.give')}">          <a ng-click="getLink('/admin/give')">Points to Give</a></li>
+                <li ng-class="{active:isActive('admin.compliments')}">   <a ng-click="getLink('/admin/compliments')">Compliments</a></li>
+                <li ng-class="{active:isActive('admin.give')}">   <a ng-click="getLink('/admin/give')">Awards</a></li>
+                <li ng-class="{active:isActive('admin.give')}">   <a ng-click="getLink('/admin/give')">Settings</a></li>
             </ul>
             <br/>
             <div>
