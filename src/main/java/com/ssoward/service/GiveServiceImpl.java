@@ -88,6 +88,50 @@ public class GiveServiceImpl implements GiveService{
                 g.getReceivedDt(), g.getGivenDt(), g.getReceivedBy(), g.getStatus().name(), g.getType().name(), g.getSpentDt(), g.getPraise(), g.getId());
     }
 
+    @Override
+    public void expireOldPoints(Employee employee) {
+        //any points not used this month/year are automatically expired.
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH)+1;
+        jdbcTemplate.update("update give g set g.status = ? where (year(receivedDt) != ? or month(receivedDt) != ?) and user=?",
+                new Object[]{GivesStatusEnum.EXPIRED.name(), year, month, employee.getEmail()});
+    }
+
+    @Override
+    public boolean awardPointsForGiveParticipation(Employee employee) {
+        //check current month and last month to see if all gives are given
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH)+1;
+        int yes = jdbcTemplate.queryForObject("select count(*) from give " +
+                "where year(receivedDt) = ? and month(receivedDt) = ? and user=? " +
+                "and (status = ? or status = ?) and giveType = ? and giveType != ?",
+                new Object[]{year, month, employee.getEmail(), GivesStatusEnum.GIVEN.name(),
+                        GivesStatusEnum.GIVEN_SPENT.name(), GivesTypeEnum.MONTHLY.name(),
+                        GivesTypeEnum.PARTICIPATION.name()}, Integer.class);
+
+        return yes>2;
+    }
+
+    @Override
+    public void awardPoint(GivesTypeEnum type, String user, GivesStatusEnum given, Long praiseId) {
+        Give g = new Give();
+        g.setType(type);
+        g.setStatus(given);
+        g.setReceivedBy(type.name());
+        g.setReceivedDt(new Date());
+        g.setUser(user);
+        g.setPraise(praiseId);
+        saveGive(g);
+    }
+
+    @Override
+    public void updateMonthlyForParticipation(Employee employee) {
+        jdbcTemplate.update("update give set giveType = ? where giveType = ? and user = ?",
+                new Object[]{GivesTypeEnum.MONTHLY_USED.name(), GivesTypeEnum.MONTHLY.name(), employee.getEmail()});
+    }
+
 
     private void buildGive(List<Map<String, Object>> l, List<Give> uList) {
         if(l != null){

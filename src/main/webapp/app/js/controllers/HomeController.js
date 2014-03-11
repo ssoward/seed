@@ -35,6 +35,12 @@ angular.module('myApp').controller('HomeController', function ($scope, Complimen
     function getMembers(){
         AdminService.getAllUsers().then(function(res){
             $scope.members = res.data;
+            for(var i = 0; i< $scope.members.length; i++){
+                var mem = $scope.members[i];
+                if(mem.email == $scope.user.email){
+                    $scope.members.splice(i, 1);
+                }
+            }
         });
     }
 

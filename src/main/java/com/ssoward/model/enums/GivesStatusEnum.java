@@ -7,7 +7,8 @@ package com.ssoward.model.enums;
 public enum GivesStatusEnum {
     TOBE_GIVEN("toBeGiven", 1l),
     GIVEN("given", 2l),
-    GIVEN_SPENT("givenAndSpent", 3l);
+    GIVEN_SPENT("givenAndSpent", 3l),
+    EXPIRED("expiredBeforeUse", 4l);
 
     private String label;
     private Long id;

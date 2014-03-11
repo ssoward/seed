@@ -64,8 +64,15 @@ public class UserServiceImpl implements UserService {
         if(emp != null){
             emp.setGives(giveService.getGives(userName));
             emp.setUnspentCount(SeedUtil.getUnusedGives(emp));
+            emp.setUnspentPoints(getUnspentPoints(emp));
         }
         return emp;
+    }
+
+    private Integer getUnspentPoints(Employee emp) {
+        String sql = "select count(*) from give g join praise p on p.id = g.praise where g.status = ? and p.praisee = ?";
+        Integer i = jdbcTemplate.queryForObject(sql, new Object[] {GivesStatusEnum.GIVEN.name(), emp.getEmail()}, Integer.class);
+        return i;
     }
 
     private void buildUser(List<Map<String, Object>> l, List<Employee> uList) {

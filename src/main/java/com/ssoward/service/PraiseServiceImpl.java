@@ -41,10 +41,11 @@ public class PraiseServiceImpl implements PraiseService {
                 "  z.first_name as perfirst,\n" +
                 "  z.last_name as perlast,\n" +
                 "  u.first_name as peefirst,\n" +
-                "  u.last_name as peelast, p.*\n" +
+                "  u.last_name as peelast, p.*, c.name\n" +
                 "  from praise p \n" +
                 "      join users u on u.username = p.praisee\n" +
-                "      join users z on u.username = p.praiser";
+                "      join users z on z.username = p.praiser\n" +
+                "      join compliments c on c.id = p.praise";
         List<Praise> l = jdbcTemplate.query(sql, new RowMapper() {
             @Override public Praise mapRow(ResultSet rs, int i) throws SQLException {
                 Praise prop = new Praise();
@@ -52,7 +53,7 @@ public class PraiseServiceImpl implements PraiseService {
                 prop.setPraiser(rs.getString("perfirst") +" "+rs.getString("perlast"));
                 prop.setPraisee(rs.getString("peefirst")+" "+rs.getString("peelast"));
                 prop.setComment(rs.getString("comment"));
-                prop.setPraise(rs.getString("praise"));
+                prop.setPraise(rs.getString("name"));
                 prop.setPraiseDt(rs.getDate("praise_dt"));
                 return prop;
             }

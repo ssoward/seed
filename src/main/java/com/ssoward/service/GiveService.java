@@ -2,6 +2,7 @@ package com.ssoward.service;
 
 import com.ssoward.model.Employee;
 import com.ssoward.model.Give;
+import com.ssoward.model.enums.GivesStatusEnum;
 import com.ssoward.model.enums.GivesTypeEnum;
 
 import java.util.List;
@@ -20,4 +21,12 @@ public interface GiveService {
     boolean hasMonthlyGives(Employee employee);
 
     void updateGive(Give g);
+
+    void expireOldPoints(Employee employee);
+
+    boolean awardPointsForGiveParticipation(Employee employee);
+
+    void awardPoint(GivesTypeEnum type, String email, GivesStatusEnum given, Long praiseId);
+
+    void updateMonthlyForParticipation(Employee employee);
 }

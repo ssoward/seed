@@ -22,6 +22,7 @@ public class Employee {
     public String password;
     public List<Give> gives;
     public Integer unspentCount;
+    public Integer unspentPoints;
 
     public String getFirstName() {
         return firstName;
@@ -85,5 +86,13 @@ public class Employee {
 
     public void setUnspentCount(Integer unspentCount) {
         this.unspentCount = unspentCount;
+    }
+
+    public Integer getUnspentPoints() {
+        return unspentPoints;
+    }
+
+    public void setUnspentPoints(Integer unspentPoints) {
+        this.unspentPoints = unspentPoints;
     }
 }

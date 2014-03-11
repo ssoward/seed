@@ -6,7 +6,9 @@ package com.ssoward.model.enums;
  */
 public enum GivesTypeEnum {
     MONTHLY("monthly", 1l),
-    ADMIN("admin", 2l);
+    ADMIN("admin", 2l),
+    PARTICIPATION("awardingAllGivesWithinTimePeriod", 3l),
+    MONTHLY_USED("awardingAllGivesWithinTimePeriod_MARKASUSED", 4l);
 
     String label;
     Long id;

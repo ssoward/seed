@@ -1,7 +1,7 @@
 <div>
     <span class="panel-title h1">Points</span>
     <ul class="nav">
-        <li>Total YV Bucks Received </li>
+        <li>Total YV Bucks Received {{ user.unspentPoints }}</li>
         <li>Total Compliments to Give {{ user.unspentCount }}</li>
     </ul>
 </div>
@@ -70,7 +70,7 @@
                         {{praise.praisee}}
                     </div>
                     <div class="col-sm-3 h6">
-                        {{compliments[praise.praise].name}}
+                        {{praise.praise}}
                     </div>
                     <div class="col-sm-2 h6">
                         {{praise.comment}}
