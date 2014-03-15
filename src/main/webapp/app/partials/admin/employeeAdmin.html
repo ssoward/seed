@@ -76,9 +76,9 @@
         <div class="table-responsive" role="menu">
             <div class="my-row row">
                 <div class="col-sm-1">Delete</div>
-                <div class="col-sm-2">Edit</div>
-                <div class="col-sm-2">Email</div>
+                <div class="col-sm-2">User</div>
                 <div class="col-sm-2">Role</div>
+                <div class="col-sm-2">Email</div>
             </div>
 
             <div class="my-row row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="user in users | orderBy:predicate:true">
@@ -90,10 +90,10 @@
                         <a class="btn-link" tooltip="Edit Employee" ng-click="setUser(user)" data-toggle="modal">{{ user.firstName }} {{ user.lastName }}</a>
                     </div>
                     <div class="col-sm-2 h6">
-                        {{ user.email }}
+                        {{ user.auth =='ROLE_ADMIN' ? 'Admin':'Staff' }}
                     </div>
                     <div class="col-sm-2 h6">
-                        {{ user.auth }}
+                        {{ user.email }}
                     </div>
                 </div>
             </div>

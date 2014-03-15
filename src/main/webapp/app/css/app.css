@@ -41,20 +41,67 @@
 
 .my-show-hide-animation.ng-hide-add,
 .my-show-hide-animation.ng-hide-remove {
-  -webkit-transition:1s linear all;
-  transition:1s linear all;
+    -webkit-transition:1s linear all;
+    transition:1s linear all;
 
-  /* remember to add this */
-  display:block!important;
-  opacity:1;
+    /* remember to add this */
+    display:block!important;
+    opacity:1;
 }
 .my-show-hide-animation.ng-hide {
-  opacity:0;
+    opacity:0;
 }
 
+@media(max-width:767px){
+    .show{
+        display: none !important;
+    }
+    .hide{
+        display: block !important;
+    }
+}
+@media(min-width:768px){
+
+}
+@media(min-width:992px){
+
+}
+@media(min-width:1200px){
+
+}
+
+.my-th{
+    margin-top: -2.1em;
+    padding-left: 2.2em;
+    border-bottom: 1px solid rgba(0,0,0,.15);
+    font-size: 1.2em;
+    line-height: 110%;
+    padding: .5em .5em;
+    background-color: #fff;
+    color: #77bbff;
+    -moz-box-shadow: 0 1px 6px rgba(0,0,0,.1);
+    -webkit-box-shadow: 0 1px 6px rgba(0,0,0,.1);
+    box-shadow: 0 1px 6px rgba(0,0,0,.1);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    clear: left;
+}
+
+.hide{
+    display: none;
+}
 .my-row{
-    width: 90%;
-    border: solid 1px #aaa;
+    width: 100%;
+    border: 1px solid #AAAAAA;
+    left: 10px;
+    padding: 10px;
+    position: relative;
+}
+
+.my-sm-row{
+    width: 100%;
+    border: 1px solid #AAAAAA;
     left: 10px;
     padding: 10px;
     position: relative;
@@ -91,10 +138,14 @@
 }
 
 body {
-    padding-top: 40px;
     padding-bottom: 40px;
     background-color: #eee;
-    padding: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.user{
+    top: 20px;
 }
 
 .form-signin {

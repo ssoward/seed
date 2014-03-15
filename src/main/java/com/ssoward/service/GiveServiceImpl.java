@@ -59,7 +59,7 @@ public class GiveServiceImpl implements GiveService{
         List<Give> uList = new ArrayList<Give>();
         List<Map<String, Object>> l = null;
         if(userName != null){
-            l = jdbcTemplate.queryForList("select * from give where user = ? ", userName);
+            l = jdbcTemplate.queryForList("select * from give g where g.user = ? ", userName);
         }else{
             l = jdbcTemplate.queryForList("select * from give");
         }

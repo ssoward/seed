@@ -17,9 +17,15 @@
 </head>
 <body>
 <div  ng-controller="InitController">
+    <span>
+        <span class="title">EIP</span>
+        <small>Employee Incentive Program</small>
+    </span>
     <div class="navbar-right">
-        <a tooltip="Edit Account" href="#/admin/users">{{ user.email }}</a>
-        <span class="logout btn"> <a href="/logout">logout</a></span>
+        <div> <a href="/logout" tooltip="Later Brutha">logout</a></div>
+        <div class="user">
+            <a tooltip="Edit Account" href="#/admin/users">{{ user.email }}</a>
+        </div>
     </div>
 
     <ul class="menu">

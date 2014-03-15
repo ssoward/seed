@@ -4926,6 +4926,17 @@ a.list-group-item.active > .badge,
   background-color: #eeeeee;
 }
 
+.title{
+    text-align: center;
+    margin: 200px auto;
+    font-family: "League-Gothic", "Comic Sans MS";
+    font-size: 80px;
+    text-transform: uppercase;
+    color: #707070;
+    text-shadow: 5px 5px 0 #EEEEEE, 7px 7px 0px #707070;
+    font: normal;
+}
+
 .jumbotron h1 {
   line-height: 1;
   color: inherit;

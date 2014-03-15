@@ -45,14 +45,14 @@
     <div class="form-group">
         <span class="panel-title h2">History</span>
         <div>&nbsp;</div>
-        <div class="table-responsive" role="menu">
+        <div class="table-responsive show" role="menu">
             <div class="my-row row">
                 <div data-ng-show="userAdmin" class="col-sm-1">Delete</div>
                 <div class="col-sm-1"><a href="" ng-click="predicate = 'praiseDt'; reverse=false">Date</a></div>
-                <div class="col-sm-2"><a href="" ng-click="predicate = 'praiser'; reverse=false">Praiser</a></div>
-                <div class="col-sm-2"><a href="" ng-click="predicate = 'praisee'; reverse=false">Praisee</a></div>
-                <div class="col-sm-3">Praise</div>
-                <div class="col-sm-2"><a href="" ng-click="predicate = 'comment'; reverse=false">Comments</a></div>
+                <div class="col-sm-1"><a href="" ng-click="predicate = 'praisee';  reverse=false">Praisee</a></div>
+                <div class="col-sm-2"><a href="" ng-click="predicate = 'praiser';  reverse=false">Praiser</a></div>
+                <div class="col-sm-3"><a href="" ng-click="predicate = 'praise';   reverse=false">Praise</a></div>
+                <div class="col-sm-3"><a href="" ng-click="predicate = 'comment';  reverse=false">Comments</a></div>
             </div>
 
             <div class="my-row row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="praise in praises | orderBy:predicate:true">
@@ -63,22 +63,52 @@
                     <div class="col-sm-1 h6">
                         {{praise.praiseDt}}
                     </div>
+                    <div class="col-sm-1 h6">
+                        {{praise.praisee}}
+                    </div>
                     <div class="col-sm-2 h6">
                         {{praise.praiser}}
-                    </div>
-                    <div class="col-md-2 h6">
-                        {{praise.praisee}}
                     </div>
                     <div class="col-sm-3 h6">
                         {{praise.praise}}
                     </div>
-                    <div class="col-sm-2 h6">
+                    <div class="col-sm-3 h6">
                         {{praise.comment}}
                     </div>
                 </div>
             </div>
         </div>
+        <!--small screen start-->
+        <div class="table-responsive hide" role="menu">
+            <div ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="praise in praises | orderBy:predicate:true">
+                <table data-role="table" data-mode="reflow" class="table-stroke ui-table ui-table-reflow">
+                    <thead>
+                    <tr>
+                        <th colspan="3" style="width: 100%" class="my-th"> {{praise.praisee}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="h6">Date</td>
+                        <td class="h6">{{praise.praiseDt}}</td>
+                    </tr>
+                    <tr>
+                        <td class="h6">Praiser</td>
+                        <td class="h6">{{praise.praiser}}</td>
+                    </tr>
+                    <tr>
+                        <td class="h6">Praise</td>
+                        <td class="h6">{{praise.praise}}</td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom: 3px solid #aaa;" class="h6">Comment</td>
+                        <td style="width: 100%; border-bottom: 3px solid #aaa;" class="h6">{{praise.comment}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+    <!--small screen end-->
 </div>
-
 
