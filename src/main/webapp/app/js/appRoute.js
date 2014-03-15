@@ -6,6 +6,11 @@ angular.module('myApp').config(function ($stateProvider, $urlRouterProvider) {
                 url: '/home',
                 templateUrl: 'partials/home.html',
                 controller: 'HomeController'
+            })
+            .state('store', {
+                url: '/store',
+                templateUrl: 'partials/store.html',
+                controller: 'HomeController'
             });
 
     //ADMIN states
