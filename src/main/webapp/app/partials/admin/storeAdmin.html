@@ -1,0 +1,16 @@
+<input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+
+
+<div class="table-responsive" role="menu">
+    <div class="my-row row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="award in awards | orderBy:predicate:true">
+        <div class="col-sm-1">
+            <button tooltip="Delete Compliment" class="btn btn-danger" ng-click="deleteCompliment(comp)" value="delete"/>
+        </div>
+        <div class="col-lg-10">
+            {{award}}
+        </div>
+        <div class="col-lg-10">
+            <img ng-src="/api/awards/{{award.id}}">
+        </div>
+    </div>
+</div>

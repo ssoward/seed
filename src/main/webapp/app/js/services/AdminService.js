@@ -34,6 +34,23 @@ angular.module('myApp').service('AdminService', function ($http, $log) {
         });
     }
 
+    this.fetchAwards = function(){
+        return $http({
+            method: 'GET',
+            url: '/api/awards'
+        });
+    }
+    this.uploadFiles = function(fd){
+        return $http({
+            method: 'POST',
+            url: '/api/content-files/upload',
+            data: fd,
+            withCredentials: true,
+            headers: {'Content-Type': undefined },
+            transformRequest: angular.identity
+        });
+    }
+
     this.saveCount = function(praiser){
         return $http({
             method: 'PUT',

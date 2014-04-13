@@ -2,9 +2,10 @@ angular.module('myApp').controller('InitController', function ($scope, PraiseSer
     $scope.userAdmin = false;
     init();
     function init(){
-        AdminService.getLoggedInUser().then(function(res){
-            $scope.user = res.data;
-            $scope.userAdmin = ($scope.user.auth == 'ROLE_ADMIN');
-        });
+        AdminService.getLoggedInUser()
+                .then(function(res){
+                    $scope.user = res.data;
+                    $scope.userAdmin = ($scope.user.auth == 'ROLE_ADMIN');
+                });
     }
 });

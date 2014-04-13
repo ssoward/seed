@@ -40,6 +40,11 @@ angular.module('myApp').config(function ($stateProvider, $urlRouterProvider) {
                 templateUrl: 'partials/admin/pointsToGiveAdmin.html',
                 controller: 'AdminComplimentsController'
             })
+            .state('admin.store', {
+                url: '/store',
+                templateUrl: 'partials/admin/storeAdmin.html',
+                controller: 'AdminStoreController'
+            })
     ;
 
 });
