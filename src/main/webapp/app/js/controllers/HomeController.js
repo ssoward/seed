@@ -72,18 +72,17 @@ angular.module('myApp').controller('HomeController', function ($scope, Complimen
     }
 
     $scope.savePraise = function (){
-
         if($scope.newPraise || $scope.newPraisee){
             $scope.praise = {};
             $scope.praise.id = null;
             $scope.praise.praiser= $scope.user.email;
             $scope.praise.praise =  $scope.newPraise;
-            $scope.praise.praisee = $scope.newPraisee;
+            $scope.praise.praisee = $scope.newPraisee.email;
             $scope.praise.comment = $scope.newComment;
             $scope.praise.praiseDt = new Date();
 
             PraiseService.savePraise($scope.praise).then(function(res){
-                $scope.showMessage('success', 'Successfully saved praise for '+ $scope.newPraisee+'.');
+                $scope.showMessage('success', 'Successfully saved praise for '+ $scope.newPraisee.firstName+' '+$scope.newPraisee.lastName+'.');
                 getUser();
                 getPraises();
                 clearPraise();

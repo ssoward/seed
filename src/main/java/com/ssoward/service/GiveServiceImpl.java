@@ -67,6 +67,16 @@ public class GiveServiceImpl implements GiveService{
         return uList;
     }
 
+    @Override
+    public List<Give> getBucks(String userName) {
+        List<Give> uList = new ArrayList<Give>();
+        List<Map<String, Object>> l = null;
+        String sql = "select g.* from give g join praise p on p.id = g.praise where g.status = ? and p.praisee = ?";
+        l = jdbcTemplate.queryForList(sql, new Object[] {GivesStatusEnum.GIVEN.name(), userName});
+        buildGive(l, uList);
+        return uList;
+    }
+
 
     @Override
     public List<Give> getGives() {
@@ -105,8 +115,8 @@ public class GiveServiceImpl implements GiveService{
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH)+1;
         int yes = jdbcTemplate.queryForObject("select count(*) from give " +
-                "where year(receivedDt) = ? and month(receivedDt) = ? and user=? " +
-                "and (status = ? or status = ?) and giveType = ? and giveType != ?",
+                        "where year(receivedDt) = ? and month(receivedDt) = ? and user=? " +
+                        "and (status = ? or status = ?) and giveType = ? and giveType != ?",
                 new Object[]{year, month, employee.getEmail(), GivesStatusEnum.GIVEN.name(),
                         GivesStatusEnum.GIVEN_SPENT.name(), GivesTypeEnum.MONTHLY.name(),
                         GivesTypeEnum.PARTICIPATION.name()}, Integer.class);
@@ -145,6 +155,8 @@ public class GiveServiceImpl implements GiveService{
                 u.setStatus(GivesStatusEnum.getForName((String)m.get("status")));
                 u.setType(GivesTypeEnum.getForName((String) m.get("giveType")));
                 u.setSpentDt((Date) m.get("spentDt"));
+                String s = (String) m.get("award");
+                u.setAward(s!=null?Long.parseLong(s):null);
                 try{u.setPraise(((Integer) m.get("praise")).longValue());}catch(NullPointerException e){/*null value*/}
                 uList.add(u);
             }

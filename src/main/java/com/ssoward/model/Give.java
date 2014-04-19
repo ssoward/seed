@@ -19,6 +19,7 @@ public class Give {
     String receivedBy;
     GivesStatusEnum status;
     GivesTypeEnum type;
+    private Long award;
 
     public Long getId() {
         return id;
@@ -91,5 +92,13 @@ public class Give {
 
     public void setPraise(Long praise) {
         this.praise = praise;
+    }
+
+    public void setAward(Long award) {
+        this.award = award;
+    }
+
+    public Long getAward() {
+        return award;
     }
 }

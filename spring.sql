@@ -64,7 +64,7 @@ CREATE TABLE `awards` (
 
 LOCK TABLES `awards` WRITE;
 /*!40000 ALTER TABLE `awards` DISABLE KEYS */;
-INSERT INTO `awards` VALUES (117,'IMG_5125.JPG','2014-04-18 16:43:43','user@me.com','scottTest','100'),(118,'IMG_5145.JPG','2014-04-18 17:00:13','user@me.com','kidsUpsidedown','99');
+INSERT INTO `awards` VALUES (117,'IMG_5125.JPG','2014-04-18 16:43:43','user@me.com','scottTest','1'),(118,'IMG_5145.JPG','2014-04-18 17:00:13','user@me.com','kidsUpsidedown','99');
 /*!40000 ALTER TABLE `awards` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,8 +112,9 @@ CREATE TABLE `give` (
   `giveType` varchar(100) DEFAULT NULL,
   `spentDt` datetime DEFAULT NULL,
   `praise` int(11) DEFAULT NULL,
+  `award` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=170 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=174 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +123,7 @@ CREATE TABLE `give` (
 
 LOCK TABLES `give` WRITE;
 /*!40000 ALTER TABLE `give` DISABLE KEYS */;
-INSERT INTO `give` VALUES (159,'user@me.com','2014-03-10 23:49:16','2014-03-10 23:49:20','MONTHLY','EXPIRED','MONTHLY_USED',NULL,63),(160,'user@me.com','2014-03-10 23:49:16','2014-03-10 23:49:24','MONTHLY','EXPIRED','MONTHLY_USED',NULL,64),(161,'user@me.com','2014-03-10 23:49:16','2014-03-10 23:49:28','MONTHLY','EXPIRED','MONTHLY_USED',NULL,65),(162,'user@me.com','2014-03-10 23:49:28',NULL,'PARTICIPATION','EXPIRED','PARTICIPATION',NULL,66),(163,'test@me.com','2014-03-10 23:49:55','2014-03-10 23:50:01','MONTHLY','GIVEN','MONTHLY_USED',NULL,67),(164,'test@me.com','2014-03-10 23:49:55','2014-03-10 23:50:08','MONTHLY','GIVEN','MONTHLY_USED',NULL,68),(165,'test@me.com','2014-03-10 23:49:55','2014-03-10 23:50:14','MONTHLY','GIVEN','MONTHLY_USED',NULL,69),(166,'test@me.com','2014-03-10 23:50:14',NULL,'PARTICIPATION','GIVEN','PARTICIPATION',NULL,70),(167,'user@me.com','2014-04-03 20:13:36',NULL,'MONTHLY','TOBE_GIVEN','MONTHLY',NULL,NULL),(168,'user@me.com','2014-04-03 20:13:36',NULL,'MONTHLY','TOBE_GIVEN','MONTHLY',NULL,NULL),(169,'user@me.com','2014-04-03 20:13:36',NULL,'MONTHLY','TOBE_GIVEN','MONTHLY',NULL,NULL);
+INSERT INTO `give` VALUES (159,'user@me.com','2014-03-10 23:49:16','2014-03-10 23:49:20','MONTHLY','EXPIRED','MONTHLY_USED',NULL,63,NULL),(160,'user@me.com','2014-03-10 23:49:16','2014-03-10 23:49:24','MONTHLY','EXPIRED','MONTHLY_USED',NULL,64,NULL),(161,'user@me.com','2014-03-10 23:49:16','2014-03-10 23:49:28','MONTHLY','EXPIRED','MONTHLY_USED',NULL,65,NULL),(162,'user@me.com','2014-03-10 23:49:28',NULL,'PARTICIPATION','EXPIRED','PARTICIPATION',NULL,66,NULL),(163,'test@me.com','2014-03-10 23:49:55','2014-03-10 23:50:01','MONTHLY','GIVEN_SPENT','MONTHLY_USED','2014-04-18 23:41:22',67,NULL),(164,'test@me.com','2014-03-10 23:49:55','2014-03-10 23:50:08','MONTHLY','GIVEN_SPENT','MONTHLY_USED','2014-04-18 23:42:21',68,NULL),(165,'test@me.com','2014-03-10 23:49:55','2014-03-10 23:50:14','MONTHLY','GIVEN','MONTHLY_USED',NULL,69,NULL),(166,'test@me.com','2014-03-10 23:50:14',NULL,'PARTICIPATION','GIVEN','PARTICIPATION',NULL,70,NULL),(167,'user@me.com','2014-04-03 20:13:36','2014-04-18 22:39:17','MONTHLY','TOBE_GIVEN','MONTHLY_USED','2014-04-18 23:10:30',80,NULL),(168,'user@me.com','2014-04-03 20:13:36','2014-04-18 22:50:16','MONTHLY','TOBE_GIVEN','MONTHLY_USED',NULL,81,NULL),(169,'user@me.com','2014-04-03 20:13:36','2014-04-18 22:25:46','MONTHLY','TOBE_GIVEN','MONTHLY_USED',NULL,73,NULL),(172,'user@me.com','2014-04-18 22:04:23','2014-04-18 22:26:28','ADMIN','TOBE_GIVEN','ADMIN',NULL,75,NULL),(173,'user@me.com','2014-04-18 22:25:46',NULL,'PARTICIPATION','TOBE_GIVEN','PARTICIPATION',NULL,74,NULL);
 /*!40000 ALTER TABLE `give` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,7 +143,7 @@ CREATE TABLE `praise` (
   `praise_dt` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_id` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,7 +152,7 @@ CREATE TABLE `praise` (
 
 LOCK TABLES `praise` WRITE;
 /*!40000 ALTER TABLE `praise` DISABLE KEYS */;
-INSERT INTO `praise` VALUES (63,'user@me.com','test@me.com','dsafafd','35','2014-03-10 23:49:20'),(64,'user@me.com','youthemandme@gmail.com','asdasdf','37','2014-03-10 23:49:24'),(65,'user@me.com','youthemandme@gmail.com','asdasd','37','2014-03-10 23:49:28'),(66,'PARTICIPATION','user@me.com',NULL,'PARTICIPATION','2014-03-10 23:49:28'),(67,'test@me.com','user@me.com','asd','38','2014-03-10 23:50:01'),(68,'test@me.com','user@me.com','asdasd fasd','38','2014-03-10 23:50:08'),(69,'test@me.com','youthemandme@gmail.com','asdasdf','39','2014-03-10 23:50:14'),(70,'PARTICIPATION','test@me.com',NULL,'PARTICIPATION','2014-03-10 23:50:14');
+INSERT INTO `praise` VALUES (63,'user@me.com','test@me.com','dsafafd','35','2014-03-10 23:49:20'),(64,'user@me.com','youthemandme@gmail.com','asdasdf','37','2014-03-10 23:49:24'),(65,'user@me.com','youthemandme@gmail.com','asdasd','37','2014-03-10 23:49:28'),(66,'PARTICIPATION','user@me.com',NULL,'PARTICIPATION','2014-03-10 23:49:28'),(67,'test@me.com','user@me.com','asd','38','2014-03-10 23:50:01'),(68,'test@me.com','user@me.com','asdasd fasd','38','2014-03-10 23:50:08'),(69,'test@me.com','youthemandme@gmail.com','asdasdf','39','2014-03-10 23:50:14'),(70,'PARTICIPATION','test@me.com',NULL,'PARTICIPATION','2014-03-10 23:50:14'),(71,'user@me.com','youthemandme@gmail.com','you rock dudette!','39','2014-04-18 22:23:28'),(72,'user@me.com','test@me.com','dfasdfasdf adsf','40','2014-04-18 22:25:03'),(73,'user@me.com','youthemandme@gmail.com','asd','38','2014-04-18 22:25:46'),(74,'PARTICIPATION','user@me.com',NULL,'PARTICIPATION','2014-04-18 22:25:46'),(75,'user@me.com','youthemandme@gmail.com','asd','38','2014-04-18 22:26:28'),(76,'user@me.com','youthemandme@gmail.com','asd','43','2014-04-18 22:27:46'),(77,'user@me.com','youthemandme@gmail.com','asdasd','43','2014-04-18 22:28:14'),(78,'user@me.com','youthemandme@gmail.com','dfadfa','40','2014-04-18 22:30:05'),(79,'user@me.com','youthemandme@gmail.com','asd','38','2014-04-18 22:32:02'),(80,'user@me.com','youthemandme@gmail.com','asdasdf asdf asdasdf a','38','2014-04-18 22:39:17'),(81,'user@me.com','youthemandme@gmail.com','dsffsefsd','38','2014-04-18 22:50:16');
 /*!40000 ALTER TABLE `praise` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-04-18 17:06:23
+-- Dump completed on 2014-04-18 23:44:13

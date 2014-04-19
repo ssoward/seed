@@ -1,9 +1,11 @@
 package com.ssoward.service;
 
+import com.ssoward.model.Award;
 import com.ssoward.model.Employee;
 import com.ssoward.model.Give;
 import org.springframework.security.core.userdetails.User;
 
+import javax.naming.InsufficientResourcesException;
 import java.util.List;
 
 /**
@@ -17,5 +19,7 @@ public interface UserService {
     void deleteUser(String username);
     void saveUserCount(Employee praiser);
 
-    void decrementCount(String praiser, Long praise);
+    void decrementGive(String praiser, Long praise) throws InsufficientResourcesException;
+
+    void decrementBucks(Award a) throws InsufficientResourcesException;
 }

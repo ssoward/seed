@@ -50,11 +50,4 @@ public class SeedController {
         return new ResponseEntity(users, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/loggedIn", produces = {MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
-    public Employee testUser(HttpServletRequest request) {
-        scheduledTaskService.loadUserTasks();
-        return userService.getLoggedInUser();
-    }
-
 }

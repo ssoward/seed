@@ -21,8 +21,9 @@ public class Employee {
     public String email;
     public String password;
     public List<Give> gives;
-    public Integer unspentCount;
-    public Integer unspentPoints;
+    public List<Give> bucks;
+    public Integer remainingGives;  //points are given to other employees
+    public Integer unspentBucks;    //this count represents bucks to spend on awards
 
     public String getFirstName() {
         return firstName;
@@ -80,19 +81,27 @@ public class Employee {
         this.gives = gives;
     }
 
-    public Integer getUnspentCount() {
-        return unspentCount;
+    public Integer getRemainingGives() {
+        return remainingGives;
     }
 
-    public void setUnspentCount(Integer unspentCount) {
-        this.unspentCount = unspentCount;
+    public void setRemainingGives(Integer remainingGives) {
+        this.remainingGives = remainingGives;
     }
 
-    public Integer getUnspentPoints() {
-        return unspentPoints;
+    public Integer getUnspentBucks() {
+        return unspentBucks;
     }
 
-    public void setUnspentPoints(Integer unspentPoints) {
-        this.unspentPoints = unspentPoints;
+    public void setUnspentBucks(Integer unspentBucks) {
+        this.unspentBucks = unspentBucks;
+    }
+
+    public List<Give> getBucks() {
+        return bucks;
+    }
+
+    public void setBucks(List<Give> bucks) {
+        this.bucks = bucks;
     }
 }

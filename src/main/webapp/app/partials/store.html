@@ -1,1 +1,23 @@
-Comming soon!
+<div>
+    <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+</div>
+<div>
+    <h2>YV Bucks to spend: {{ user.unspentBucks }}</h2>
+</div>
+<div class="table-responsive" role="menu">
+    <div class="my-row row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="award in awards | orderBy:predicate:true">
+        <div class="col-sm-3">
+            <img tooltip="Award {{award.name}}" ng-src="/api/awards/{{award.id}}">
+        </div>
+        <div class="col-sm-5">
+           <span>
+               <div class="h4">{{award.title}}</div>
+               <br/>
+               <div class="h4">{{award.cost}}</div>
+               <br/>
+               <button class="btn btn-primary" ng-click="buyAward(award)">BUY</button>
+           </span>
+
+        </div>
+    </div>
+</div>

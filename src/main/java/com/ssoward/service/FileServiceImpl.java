@@ -22,8 +22,8 @@ import java.util.List;
 
 @Service
 public class FileServiceImpl implements FileService{
-//    public final static String PHOTO_PATH = "/Users/ssoward/scott/scrap/"; //TODO add properties file.
-    public final static String PHOTO_PATH = "/home/ec2-user/RESOURCES/apps/seed/"; //TODO add properties file.
+    public final static String PHOTO_PATH = "/Users/ssoward/scott/scrap/"; //TODO add properties file.
+//    public final static String PHOTO_PATH = "/home/ec2-user/RESOURCES/apps/seed/"; //TODO add properties file.
 
     @Autowired
     AwardsService awardsService;

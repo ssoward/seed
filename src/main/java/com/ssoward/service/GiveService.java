@@ -16,6 +16,7 @@ public interface GiveService {
     void deleteSave(Long id);
     void createGive(GivesTypeEnum gtEnum, String user);
     List<Give> getGives(String userName);
+    List<Give> getBucks(String userName);
     public List<Give> getGives();
 
     boolean hasMonthlyGives(Employee employee);

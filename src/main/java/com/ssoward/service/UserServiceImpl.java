@@ -1,5 +1,6 @@
 package com.ssoward.service;
 
+import com.ssoward.model.Award;
 import com.ssoward.model.Employee;
 import com.ssoward.model.Give;
 import com.ssoward.model.enums.GivesStatusEnum;
@@ -11,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
+import javax.naming.InsufficientResourcesException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +32,7 @@ public class UserServiceImpl implements UserService {
     GiveService giveService;
 
     @Override
-    @Cacheable(value = "userDetailsCache")
+//    @Cacheable(value = "userDetailsCache")
     public Employee getLoggedInUser(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return getUser(user.getUsername());
@@ -52,7 +54,7 @@ public class UserServiceImpl implements UserService {
             }
         }
         for(Employee e: uList){
-            e.setUnspentCount(SeedUtil.getUnusedGives(e));
+            e.setRemainingGives(SeedUtil.getUnusedGives(e));
         }
         return uList;
     }
@@ -65,8 +67,9 @@ public class UserServiceImpl implements UserService {
         Employee emp = uList != null?uList.get(0):null;
         if(emp != null){
             emp.setGives(giveService.getGives(userName));
-            emp.setUnspentCount(SeedUtil.getUnusedGives(emp));
-            emp.setUnspentPoints(getUnspentPoints(emp));
+            emp.setBucks(giveService.getBucks(userName));
+            emp.setRemainingGives(SeedUtil.getUnusedGives(emp));
+            emp.setUnspentBucks(getUnspentPoints(emp));
         }
         return emp;
     }
@@ -130,17 +133,17 @@ public class UserServiceImpl implements UserService {
             jdbcTemplate.update("insert into authorities values (?, 'ROLE_AUTH')",
                     praiser.getEmail());
         }
-        if(praiser.unspentCount != null){
-            int unspentCount = SeedUtil.getUnusedGives(praiser);
+        if(praiser.remainingGives != null){
+            int remainingGives = SeedUtil.getUnusedGives(praiser);
 
             //check if unspent count is greater or less than
-            if(unspentCount<praiser.unspentCount){
-                while(unspentCount<praiser.unspentCount){
-                    unspentCount++;
+            if(remainingGives<praiser.remainingGives){
+                while(remainingGives<praiser.remainingGives){
+                    remainingGives++;
                     giveService.createGive(GivesTypeEnum.ADMIN, praiser.email);
                 }
-            }else if(unspentCount>praiser.unspentCount){
-                while(unspentCount>=praiser.unspentCount){
+            }else if(remainingGives>praiser.remainingGives){
+                while(remainingGives>=praiser.remainingGives){
                     for(Give g: praiser.getGives()){
                         if(g.getReceivedBy().equals(GivesTypeEnum.ADMIN.name())){
                             if(g.getStatus().equals(GivesStatusEnum.TOBE_GIVEN)){
@@ -149,11 +152,9 @@ public class UserServiceImpl implements UserService {
                             }
                         }
                     }
-                    unspentCount--;
+                    remainingGives--;
                 }
             }
-
-
         }
     }
 
@@ -173,8 +174,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void decrementCount(String praiser, Long praise) {
+    //find the first NON-GIVEN give and 'expire' it ie. set status to GIVEN.
+    public void decrementGive(String praiser, Long praise) throws InsufficientResourcesException {
         Employee emp = getLoggedInUser();
+        if(emp.getRemainingGives() == null || emp.getRemainingGives()<1){
+            throw new InsufficientResourcesException("No Gives To Give");
+        }
         for(Give g: emp.getGives()){
             if(g.getStatus().equals(GivesStatusEnum.TOBE_GIVEN)){
                 g.setStatus(GivesStatusEnum.GIVEN);
@@ -184,6 +189,24 @@ public class UserServiceImpl implements UserService {
                 break;
             }
         }
+    }
+
+    @Override
+    public void decrementBucks(Award a) throws InsufficientResourcesException {
+        Employee emp = getLoggedInUser();
+        if(emp.getUnspentBucks() == null || emp.getUnspentBucks()<1){
+            throw new InsufficientResourcesException("No Bread");
+        }
+        for(Give g: emp.getBucks()){
+            if(g.getStatus().equals(GivesStatusEnum.GIVEN)){
+                g.setStatus(GivesStatusEnum.GIVEN_SPENT);
+                g.setSpentDt(new Date());
+                g.setAward(a.getId());
+                giveService.updateGive(g);
+                break;
+            }
+        }
+
     }
 
 }

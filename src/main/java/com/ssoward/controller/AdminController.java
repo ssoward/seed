@@ -1,6 +1,7 @@
 package com.ssoward.controller;
 
 import com.ssoward.model.Award;
+import com.ssoward.model.Employee;
 import com.ssoward.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -56,5 +57,15 @@ public class AdminController {
     @Autowired
     FileService fileService;
 
+    @Autowired
+    ScheduledTaskService scheduledTaskService;
+
+    @RequestMapping(method = RequestMethod.GET, value = "/loggedIn", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public Employee getLoggedInUser(HttpServletRequest request) {
+        scheduledTaskService.loadUserTasks();
+        Employee e = userService.getLoggedInUser();
+        return e;
+    }
 
 }

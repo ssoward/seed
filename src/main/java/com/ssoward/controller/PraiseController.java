@@ -1,7 +1,6 @@
 package com.ssoward.controller;
 
 
-import com.ssoward.model.Employee;
 import com.ssoward.model.Praise;
 import com.ssoward.service.PraiseService;
 import com.ssoward.service.TestUtil;
@@ -13,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.InsufficientResourcesException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -38,10 +38,16 @@ public class PraiseController {
     PraiseService praiseService;
 
     @RequestMapping(method = RequestMethod.POST, value="/praise", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity savePraise(@RequestBody Praise praise) {
+    public ResponseEntity givePraise(@RequestBody Praise praise) {
         if(praise != null){
+            //TODO check there are gives available for this praise.
             Long id = praiseService.savePraise(praise);
-            userService.decrementCount(praise.getPraiser(), id);
+            try {
+                userService.decrementGive(praise.getPraiser(), id);
+            } catch (InsufficientResourcesException e) {
+                e.printStackTrace();
+                return new ResponseEntity(HttpStatus.CONFLICT);
+            }
         }
         return new ResponseEntity(HttpStatus.CREATED);
     }
