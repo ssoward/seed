@@ -1,0 +1,11 @@
+<span class="h4">{{label}}:  </span>
+<span>
+    <input ng-required class="input-sm" type="text" on-enter="save()" on-esc="cancel()" ng-model="model" ng-show="editMode">
+    <button class="btn btn-primary" ng-click="save()" ng-show="editMode">save</button>
+    <button class="btn btn-default" ng-click="cancel()" ng-show="editMode">cancel</button>
+
+  <span ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
+    <span tooltip="Edit" ng-hide="editMode" ng-click="edit()">{{model}}</span>
+    <!--<a ng-show="showEdit" ng-click="edit()">edit</a>-->
+  </span>
+</span>

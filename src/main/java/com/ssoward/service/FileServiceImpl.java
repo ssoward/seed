@@ -7,7 +7,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -23,7 +22,8 @@ import java.util.List;
 
 @Service
 public class FileServiceImpl implements FileService{
-    public final static String PHOTO_PATH = "/Users/ssoward/scott/scrap/";
+//    public final static String PHOTO_PATH = "/Users/ssoward/scott/scrap/"; //TODO add properties file.
+    public final static String PHOTO_PATH = "/home/ec2-user/RESOURCES/apps/seed/"; //TODO add properties file.
 
     @Autowired
     AwardsService awardsService;
@@ -67,5 +67,12 @@ public class FileServiceImpl implements FileService{
             e.printStackTrace();
         }
         return award;
+    }
+
+    @Override
+    public void deleteFile(Long id) throws IOException {
+        Award a = awardsService.getAward(id);
+        String photo = PHOTO_PATH + a.getName();
+        Files.delete(Paths.get(photo));
     }
 }

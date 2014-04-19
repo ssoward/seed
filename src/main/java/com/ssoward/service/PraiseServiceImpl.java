@@ -77,12 +77,6 @@ public class PraiseServiceImpl implements PraiseService {
                 return preparedStatement;
             }
         }, keyHolder);
-//        jdbcTemplate.update(sql,
-//                new Object[]{praise.getPraiser(),
-//                praise.getPraisee(),
-//                praise.getComment(),
-//                praise.getPraise()}, keyHolder
-//        );
 
         Long id = keyHolder.getKey().longValue();
         return id;

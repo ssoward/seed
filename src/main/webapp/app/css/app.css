@@ -182,3 +182,46 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+input[type=file].form-control {
+    height: 30px;
+    padding: 0 12px;
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px !important;
+}
+/*.btn-file input[type=file] {*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*right: 0;*/
+    /*min-width: 100%;*/
+    /*min-height: 100%;*/
+    /*font-size: 999px;*/
+    /*text-align: right;*/
+    /*filter: alpha(opacity=0);*/
+    /*opacity: 0;*/
+    /*outline: none;*/
+    /*background: white;*/
+    /*cursor: inherit;*/
+    /*display: block;*/
+/*}*/
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 999px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    background: red;
+    cursor: inherit;
+    display: block;
+}

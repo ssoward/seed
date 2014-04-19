@@ -16,6 +16,8 @@ public class Award {
     String name;
     Date createdDt;
     private String createdBy;
+    private String title;
+    private String cost;
 
     public Long getId() {
         return id;
@@ -43,5 +45,21 @@ public class Award {
 
     public String getCreatedBy() {
         return createdBy;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
+    public String getCost() {
+        return cost;
     }
 }

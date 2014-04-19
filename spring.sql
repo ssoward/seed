@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.60, for apple-darwin10.3.0 (i386)
+-- MySQL dump 10.13  Distrib 5.6.16, for osx10.9 (x86_64)
 --
 -- Host: localhost    Database: spring
 -- ------------------------------------------------------
--- Server version	5.1.60
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -37,6 +37,35 @@ LOCK TABLES `authorities` WRITE;
 /*!40000 ALTER TABLE `authorities` DISABLE KEYS */;
 INSERT INTO `authorities` VALUES ('user@me.com','ROLE_ADMIN'),('normal@me.com','ROLE_AUTH'),('test@me.com','ROLE_AUTH'),('youthemandme@gmail.com','ROLE_ADMIN');
 /*!40000 ALTER TABLE `authorities` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `awards`
+--
+
+DROP TABLE IF EXISTS `awards`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `awards` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `createdDt` datetime DEFAULT NULL,
+  `createdBy` varchar(100) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `cost` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_id` (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=119 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `awards`
+--
+
+LOCK TABLES `awards` WRITE;
+/*!40000 ALTER TABLE `awards` DISABLE KEYS */;
+INSERT INTO `awards` VALUES (117,'IMG_5125.JPG','2014-04-18 16:43:43','user@me.com','scottTest','100'),(118,'IMG_5145.JPG','2014-04-18 17:00:13','user@me.com','kidsUpsidedown','99');
+/*!40000 ALTER TABLE `awards` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -84,7 +113,7 @@ CREATE TABLE `give` (
   `spentDt` datetime DEFAULT NULL,
   `praise` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=167 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=170 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +122,7 @@ CREATE TABLE `give` (
 
 LOCK TABLES `give` WRITE;
 /*!40000 ALTER TABLE `give` DISABLE KEYS */;
-INSERT INTO `give` VALUES (159,'user@me.com','2014-03-10 23:49:16','2014-03-10 23:49:20','MONTHLY','GIVEN','MONTHLY_USED',NULL,63),(160,'user@me.com','2014-03-10 23:49:16','2014-03-10 23:49:24','MONTHLY','GIVEN','MONTHLY_USED',NULL,64),(161,'user@me.com','2014-03-10 23:49:16','2014-03-10 23:49:28','MONTHLY','GIVEN','MONTHLY_USED',NULL,65),(162,'user@me.com','2014-03-10 23:49:28',NULL,'PARTICIPATION','GIVEN','PARTICIPATION',NULL,66),(163,'test@me.com','2014-03-10 23:49:55','2014-03-10 23:50:01','MONTHLY','GIVEN','MONTHLY_USED',NULL,67),(164,'test@me.com','2014-03-10 23:49:55','2014-03-10 23:50:08','MONTHLY','GIVEN','MONTHLY_USED',NULL,68),(165,'test@me.com','2014-03-10 23:49:55','2014-03-10 23:50:14','MONTHLY','GIVEN','MONTHLY_USED',NULL,69),(166,'test@me.com','2014-03-10 23:50:14',NULL,'PARTICIPATION','GIVEN','PARTICIPATION',NULL,70);
+INSERT INTO `give` VALUES (159,'user@me.com','2014-03-10 23:49:16','2014-03-10 23:49:20','MONTHLY','EXPIRED','MONTHLY_USED',NULL,63),(160,'user@me.com','2014-03-10 23:49:16','2014-03-10 23:49:24','MONTHLY','EXPIRED','MONTHLY_USED',NULL,64),(161,'user@me.com','2014-03-10 23:49:16','2014-03-10 23:49:28','MONTHLY','EXPIRED','MONTHLY_USED',NULL,65),(162,'user@me.com','2014-03-10 23:49:28',NULL,'PARTICIPATION','EXPIRED','PARTICIPATION',NULL,66),(163,'test@me.com','2014-03-10 23:49:55','2014-03-10 23:50:01','MONTHLY','GIVEN','MONTHLY_USED',NULL,67),(164,'test@me.com','2014-03-10 23:49:55','2014-03-10 23:50:08','MONTHLY','GIVEN','MONTHLY_USED',NULL,68),(165,'test@me.com','2014-03-10 23:49:55','2014-03-10 23:50:14','MONTHLY','GIVEN','MONTHLY_USED',NULL,69),(166,'test@me.com','2014-03-10 23:50:14',NULL,'PARTICIPATION','GIVEN','PARTICIPATION',NULL,70),(167,'user@me.com','2014-04-03 20:13:36',NULL,'MONTHLY','TOBE_GIVEN','MONTHLY',NULL,NULL),(168,'user@me.com','2014-04-03 20:13:36',NULL,'MONTHLY','TOBE_GIVEN','MONTHLY',NULL,NULL),(169,'user@me.com','2014-04-03 20:13:36',NULL,'MONTHLY','TOBE_GIVEN','MONTHLY',NULL,NULL);
 /*!40000 ALTER TABLE `give` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,4 +191,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-03-11 19:43:59
+-- Dump completed on 2014-04-18 17:06:23

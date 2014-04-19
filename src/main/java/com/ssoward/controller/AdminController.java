@@ -56,35 +56,5 @@ public class AdminController {
     @Autowired
     FileService fileService;
 
-    @RequestMapping(value="/upload", method = RequestMethod.POST)
-    public void UploadFile(MultipartHttpServletRequest request, HttpServletResponse response) {
-        Iterator<String> itr=request.getFileNames();
-
-        MultipartFile file=request.getFile(itr.next());
-
-        String fileName=file.getOriginalFilename();
-        System.out.println(fileName);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value="/awards", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<String> fetchAwards(@RequestParam(value = "page", required = false, defaultValue = "0") int page) {
-        List<Award> awards = awardsService.getAwards();
-        return new ResponseEntity(awards, HttpStatus.OK);
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value="/awards/{id}", produces = "image/jpg")
-    @ResponseBody
-    byte[] fetchAward(@PathVariable("id") Long id) {
-       return fileService.getFile(id);
-    }
-
-    @RequestMapping(value = "/content-files/upload", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseEntity uploadChunked(HttpServletRequest req, HttpServletResponse res) throws ServletException, Exception {
-        fileService.uploadAward(req, res);
-
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity(headers, HttpStatus.CREATED);
-    }
 
 }

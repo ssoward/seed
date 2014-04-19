@@ -1,16 +1,25 @@
-<input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+<div class="input-group">
+    <div class="input-group-btn">
+        <div class="btn btn-primary btn-file">
+            Browse for Image…
+            <input type="file" name="file" title="Search for a file to add" onchange="angular.element(this).scope().uploadFile(this.files)"/>
+        </div>
+    </div>
+</div>
 
 
+<br/>
 <div class="table-responsive" role="menu">
     <div class="my-row row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="award in awards | orderBy:predicate:true">
-        <div class="col-sm-1">
-            <button tooltip="Delete Compliment" class="btn btn-danger" ng-click="deleteCompliment(comp)" value="delete"/>
+        <div class="col-sm-3">
+            <button tooltip="Delete Award" class="btn btn-danger pull-right" ng-click="deleteAward(award)" value="delete"/>
+            <img tooltip="Award {{award.name}}" ng-src="/api/awards/{{award.id}}">
         </div>
-        <div class="col-lg-10">
-            {{award}}
-        </div>
-        <div class="col-lg-10">
-            <img ng-src="/api/awards/{{award.id}}">
+        <div class="col-sm-5">
+            <br/>
+            <div inline-label="Title" inline-edit="award.title" on-save="updateAward(award)" on-cancel="cancelEdit(award)"></div>
+            <br/>
+            <div inline-label="Cost" inline-edit="award.cost" on-save="updateAward(award)" on-cancel="cancelEdit(award)"></div>
         </div>
     </div>
 </div>

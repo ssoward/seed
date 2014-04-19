@@ -13,7 +13,7 @@ import java.io.File;
  * Created by ssoward on 4/12/14.
  */
 public class FileServiceUtil {
-    public static void resizeImage(File f) throws Exception{
+    public static File resizeImage(File f) throws Exception{
         long startTime = System.currentTimeMillis();
         BufferedImage img = ImageIO.read(f); // load image
 
@@ -40,6 +40,6 @@ public class FileServiceUtil {
         ImageIO.write(thumbImg, "jpg", f2);
 
         System.out.println("time is : " +(System.currentTimeMillis()-startTime));
-
+        return f2;
     }
 }

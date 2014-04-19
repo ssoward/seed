@@ -5,6 +5,7 @@ import com.ssoward.model.Give;
 import com.ssoward.model.enums.GivesStatusEnum;
 import com.ssoward.model.enums.GivesTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService {
     GiveService giveService;
 
     @Override
+    @Cacheable(value = "userDetailsCache")
     public Employee getLoggedInUser(){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return getUser(user.getUsername());
