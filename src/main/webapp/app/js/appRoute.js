@@ -37,8 +37,8 @@ angular.module('myApp').config(function ($stateProvider, $urlRouterProvider) {
             })
             .state('admin.give', {
                 url: '/give',
-                templateUrl: 'partials/admin/pointsToGiveAdmin.html',
-                controller: 'AdminComplimentsController'
+                templateUrl: 'partials/admin/awardsLogAdmin.html',
+                controller: 'AdminAwardsLogController'
             })
             .state('admin.store', {
                 url: '/store',

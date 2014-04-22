@@ -19,7 +19,7 @@ public interface UserService {
     void deleteUser(String username);
     void saveUserCount(Employee praiser);
 
-    void decrementGive(String praiser, Long praise) throws InsufficientResourcesException;
+    void distributeGive(Give give) throws InsufficientResourcesException;
 
     void decrementBucks(Award a) throws InsufficientResourcesException;
 }

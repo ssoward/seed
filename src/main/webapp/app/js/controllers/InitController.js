@@ -1,4 +1,4 @@
-angular.module('myApp').controller('InitController', function ($scope, PraiseService, AdminService, $log){
+angular.module('myApp').controller('InitController', function ($scope, GiveService, AdminService, $log){
     $scope.userAdmin = false;
     init();
     function init(){

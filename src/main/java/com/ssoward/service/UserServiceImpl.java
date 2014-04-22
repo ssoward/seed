@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         List<Employee> uList = new ArrayList<Employee>();
         List<Map<String, Object>> l = jdbcTemplate.queryForList("select * from users u join authorities a on a.username = u.username");
         buildUser(l, uList);
-        List<Give> gives = giveService.getGives();
+        List<Give> gives = giveService.getGives(null);
         for(Give g: gives){
             for(Employee e: uList){
                 if(g.getUser().equals(e.getEmail())){
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private Integer getUnspentPoints(Employee emp) {
-        String sql = "select count(*) from give g join praise p on p.id = g.praise where g.status = ? and p.praisee = ?";
+        String sql = "select count(*) from give g where g.status = ? and g.givenTo = ?";
         Integer i = jdbcTemplate.queryForObject(sql, new Object[] {GivesStatusEnum.GIVEN.name(), emp.getEmail()}, Integer.class);
         return i;
     }
@@ -175,7 +175,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     //find the first NON-GIVEN give and 'expire' it ie. set status to GIVEN.
-    public void decrementGive(String praiser, Long praise) throws InsufficientResourcesException {
+    public void distributeGive(Give give) throws InsufficientResourcesException {
         Employee emp = getLoggedInUser();
         if(emp.getRemainingGives() == null || emp.getRemainingGives()<1){
             throw new InsufficientResourcesException("No Gives To Give");
@@ -184,7 +184,9 @@ public class UserServiceImpl implements UserService {
             if(g.getStatus().equals(GivesStatusEnum.TOBE_GIVEN)){
                 g.setStatus(GivesStatusEnum.GIVEN);
                 g.setGivenDt(new Date());
-                g.setPraise(praise);
+                g.setComplement(give.complement);
+                g.setGivenTo(give.getGivenTo());
+                g.setComment(give.getComment());
                 giveService.updateGive(g);
                 break;
             }

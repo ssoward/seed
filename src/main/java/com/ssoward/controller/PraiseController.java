@@ -1,8 +1,8 @@
 package com.ssoward.controller;
 
 
-import com.ssoward.model.Praise;
-import com.ssoward.service.PraiseService;
+import com.ssoward.model.Give;
+import com.ssoward.service.GiveService;
 import com.ssoward.service.TestUtil;
 import com.ssoward.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: ssoward
- * Date: 1/18/14
- * Time: 5:50 PM
- * To change this template use File | Settings | File Templates.
- */
+* Created with IntelliJ IDEA.
+* User: ssoward
+* Date: 1/18/14
+* Time: 5:50 PM
+* To change this template use File | Settings | File Templates.
+*/
 
 @Controller
 @RequestMapping("/api")
@@ -35,15 +35,14 @@ public class PraiseController {
     UserService userService;
 
     @Autowired
-    PraiseService praiseService;
+    GiveService giveService;
 
     @RequestMapping(method = RequestMethod.POST, value="/praise", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity givePraise(@RequestBody Praise praise) {
-        if(praise != null){
+    public ResponseEntity givePraise(@RequestBody Give give) {
+        if(give != null){
             //TODO check there are gives available for this praise.
-            Long id = praiseService.savePraise(praise);
             try {
-                userService.decrementGive(praise.getPraiser(), id);
+                userService.distributeGive(give);
             } catch (InsufficientResourcesException e) {
                 e.printStackTrace();
                 return new ResponseEntity(HttpStatus.CONFLICT);
@@ -52,16 +51,16 @@ public class PraiseController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/praises", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(method = RequestMethod.GET, value = "/give/praises", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public List<Praise> getPraises(HttpServletRequest request) {
-        return praiseService.getPraises();
+    public List<Give> getAllPraises(HttpServletRequest request) {
+        return giveService.getAllPraises();
     }
-
-    @RequestMapping(method = RequestMethod.DELETE, value="/praise", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteEmployee(@RequestParam Long id) {
-        praiseService.deletePraise(id);
-        return new ResponseEntity(HttpStatus.OK);
-    }
+//
+//    @RequestMapping(method = RequestMethod.DELETE, value="/praise", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity deleteEmployee(@RequestParam Long id) {
+//        giveService.deletePraise(id);
+//        return new ResponseEntity(HttpStatus.OK);
+//    }
 
 }

@@ -43,4 +43,11 @@ angular.module('myApp').service('AwardService', function ($http, $log) {
         });
     };
 
+    this.getAwardsPurchases = function (){
+        return $http({
+            method: 'GET',
+            url: '/api/awards/logs'
+        });
+    };
+
 });

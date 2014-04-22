@@ -10,16 +10,19 @@ import java.util.Date;
  */
 public class Give {
 
-    Long id;
-    Long praise;
-    String user;
-    Date receivedDt;
-    Date givenDt;
-    Date spentDt;
-    String receivedBy;
-    GivesStatusEnum status;
-    GivesTypeEnum type;
-    private Long award;
+    public Long            id;
+    public String          user;
+    public Date            receivedDt;
+    public Date            givenDt;
+    public String          receivedBy;
+    public GivesStatusEnum status;
+    public GivesTypeEnum   type;
+    public Date            spentDt;
+    public Long            complement;
+    public Long            award;
+    public String          givenTo;
+    public String          comment;
+    public String          complementName;
 
     public Long getId() {
         return id;
@@ -85,20 +88,43 @@ public class Give {
         this.spentDt = spentDt;
     }
 
-
-    public Long getPraise() {
-        return praise;
+    public Long getComplement() {
+        return complement;
     }
 
-    public void setPraise(Long praise) {
-        this.praise = praise;
+    public void setComplement(Long complement) {
+        this.complement = complement;
+    }
+
+    public Long getAward() {
+        return award;
     }
 
     public void setAward(Long award) {
         this.award = award;
     }
 
-    public Long getAward() {
-        return award;
+    public String getGivenTo() {
+        return givenTo;
+    }
+
+    public void setGivenTo(String givenTo) {
+        this.givenTo = givenTo;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getComplementName() {
+        return complementName;
+    }
+
+    public void setComplementName(String complementName) {
+        this.complementName = complementName;
     }
 }

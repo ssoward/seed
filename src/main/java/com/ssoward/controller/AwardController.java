@@ -1,6 +1,7 @@
 package com.ssoward.controller;
 
 import com.ssoward.model.Award;
+import com.ssoward.model.Give;
 import com.ssoward.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -34,6 +35,9 @@ public class AwardController {
     AwardsService awardsService;
 
     @Autowired
+    GiveService giveService;
+
+    @Autowired
     UserService userService;
 
     @Autowired
@@ -51,6 +55,12 @@ public class AwardController {
 //        String fileName=file.getOriginalFilename();
 //        System.out.println(fileName);
 //    }
+
+    @RequestMapping(method = RequestMethod.GET, value="/awards/logs", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<String> fetchAwardsLog(@RequestParam(value = "page", required = false, defaultValue = "0") int page) {
+        List<Give> awards = giveService.getAwardsLog();
+        return new ResponseEntity(awards, HttpStatus.OK);
+    }
 
     @RequestMapping(method = RequestMethod.GET, value="/awards", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<String> fetchAwards(@RequestParam(value = "page", required = false, defaultValue = "0") int page) {

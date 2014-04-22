@@ -17,7 +17,7 @@ public interface GiveService {
     void createGive(GivesTypeEnum gtEnum, String user);
     List<Give> getGives(String userName);
     List<Give> getBucks(String userName);
-    public List<Give> getGives();
+    public List<Give> getAllPraises();
 
     boolean hasMonthlyGives(Employee employee);
 
@@ -30,4 +30,6 @@ public interface GiveService {
     void awardPoint(GivesTypeEnum type, String email, GivesStatusEnum given, Long praiseId);
 
     void updateMonthlyForParticipation(Employee employee);
+
+    List<Give> getAwardsLog();
 }

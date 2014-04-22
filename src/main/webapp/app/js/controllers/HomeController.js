@@ -1,4 +1,4 @@
-angular.module('myApp').controller('HomeController', function ($scope, ComplimentService, PraiseService, AdminService, $log){
+angular.module('myApp').controller('HomeController', function ($scope, ComplimentService, GiveService, AdminService, $log){
     $scope.greeting = 'Hello, world';
 
     $scope.alerts = [
@@ -45,8 +45,8 @@ angular.module('myApp').controller('HomeController', function ($scope, Complimen
     }
 
     function getPraises(){
-        PraiseService.getAllPraises().then(function(res){
-            $scope.praises = res.data;
+        GiveService.getAllPraises().then(function(res){
+            $scope.gives = res.data;
         });
     }
 
@@ -65,7 +65,7 @@ angular.module('myApp').controller('HomeController', function ($scope, Complimen
     }
 
     $scope.deletePraise = function(praise){
-        PraiseService.deletePraise(praise).then(function(res){
+        GiveService.deletePraise(praise).then(function(res){
             $scope.showMessage('success', 'Successfully deleted praise.');
             getPraises();
         });
@@ -73,15 +73,15 @@ angular.module('myApp').controller('HomeController', function ($scope, Complimen
 
     $scope.savePraise = function (){
         if($scope.newPraise || $scope.newPraisee){
-            $scope.praise = {};
-            $scope.praise.id = null;
-            $scope.praise.praiser= $scope.user.email;
-            $scope.praise.praise =  $scope.newPraise;
-            $scope.praise.praisee = $scope.newPraisee.email;
-            $scope.praise.comment = $scope.newComment;
-            $scope.praise.praiseDt = new Date();
+            $scope.give = {};
+            $scope.give.id = null;
+            $scope.give.user = $scope.user.email;
+            $scope.give.complement =  $scope.newPraise;
+            $scope.give.givenTo = $scope.newPraisee.email;
+            $scope.give.comment = $scope.newComment;
+            $scope.give.givenDt = new Date();
 
-            PraiseService.savePraise($scope.praise).then(function(res){
+            GiveService.savePraise($scope.give).then(function(res){
                 $scope.showMessage('success', 'Successfully saved praise for '+ $scope.newPraisee.firstName+' '+$scope.newPraisee.lastName+'.');
                 getUser();
                 getPraises();

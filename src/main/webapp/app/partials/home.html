@@ -58,25 +58,25 @@
                 <div class="col-sm-3"><a href="" ng-click="predicate = 'comment';  reverse=false">Comments</a></div>
             </div>
 
-            <div class="my-row row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="praise in praises | orderBy:predicate:true">
+            <div class="my-row row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="give in gives | orderBy:predicate:true">
                 <div >
                     <div class="col-sm-1" data-ng-show="userAdmin">
                         <button tooltip="Delete Praise" class="btn btn-danger" ng-click="deletePraise(praise)" value="delete"/>
                     </div>
                     <div class="col-sm-1 h6">
-                        {{praise.praiseDt | date:'MMM dd yyyy'}}
+                        {{give.givenDt | date:'MMM dd yyyy'}}
                     </div>
                     <div class="col-sm-1 h6">
-                        {{praise.praisee}}
+                        {{give.givenTo}}
                     </div>
                     <div class="col-sm-2 h6">
-                        {{praise.praiser}}
+                        {{give.user}}
                     </div>
                     <div class="col-sm-3 h6">
-                        {{praise.praise}}
+                        {{give.complementName}}
                     </div>
                     <div class="col-sm-3 h6">
-                        {{praise.comment}}
+                        {{give.comment}}
                     </div>
                 </div>
             </div>

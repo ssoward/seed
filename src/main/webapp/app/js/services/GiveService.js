@@ -1,4 +1,4 @@
-angular.module('myApp').service('PraiseService', function ($http, $log) {
+angular.module('myApp').service('GiveService', function ($http, $log) {
 
     this.savePraise = function(praise){
         return $http({
@@ -11,7 +11,7 @@ angular.module('myApp').service('PraiseService', function ($http, $log) {
     this.getAllPraises = function (){
         return $http({
             method: 'GET',
-            url: '/api/praises'
+            url: '/api/give/praises'
         });
     };
 

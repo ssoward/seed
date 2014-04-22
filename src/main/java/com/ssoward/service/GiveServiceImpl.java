@@ -6,8 +6,33 @@ import com.ssoward.model.enums.GivesStatusEnum;
 import com.ssoward.model.enums.GivesTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Service;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import java.util.*;
 
@@ -25,17 +50,10 @@ public class GiveServiceImpl implements GiveService{
     UserService userService;
 
     @Override
-    public void saveGive(Give give) {   //id user receivedDt givenDt receivedBy status giveType spentDt
-        jdbcTemplate.update("insert into give values (null,?,?,?,?,?,?,?,?)",
-                give.getUser(),
-                give.getReceivedDt(),
-                give.getGivenDt(),
-                give.getReceivedBy(),
-                give.getStatus().name(),
-                give.getType().name(),
-                give.getSpentDt(),
-                give.getPraise()
-        );
+    public void saveGive(Give g) {
+        String sql = "insert into give (id, user, receivedDt, givenDt, receivedBy, status, giveType, spentDt, complement, award, givenTo, comment) " +
+                "values (null, ?,?,?,?,?,?,?,?,?,?,?)";
+        jdbcTemplate.update(sql, g.user, g.receivedDt, g.givenDt, g.receivedBy, g.status.name(), g.type.name(), g.spentDt, g.complement, g.award, g.givenTo, g.comment);
     }
 
     @Override
@@ -71,16 +89,27 @@ public class GiveServiceImpl implements GiveService{
     public List<Give> getBucks(String userName) {
         List<Give> uList = new ArrayList<Give>();
         List<Map<String, Object>> l = null;
-        String sql = "select g.* from give g join praise p on p.id = g.praise where g.status = ? and p.praisee = ?";
+        String sql = "select * from give g where g.status = ? and g.givenTo = ?";
         l = jdbcTemplate.queryForList(sql, new Object[] {GivesStatusEnum.GIVEN.name(), userName});
         buildGive(l, uList);
         return uList;
     }
 
-
     @Override
-    public List<Give> getGives() {
-        return getGives(null);
+    //fetch all gives that have been given
+    public List<Give> getAllPraises() {
+        List<Give> uList = new ArrayList<Give>();
+        List<Map<String, Object>> l = null;
+        String sql = "select g.id, receivedDt, givenDt, receivedBy, status, giveType, spentDt, g.complement, award, comment, \n" +
+                "  CONCAT(z.first_name, ' ', z.last_name)  as user,\n" +
+                "  CONCAT(u.first_name , ' ', u.last_name) as givenTo, c.name as complementName\n" +
+                "  from give g \n" +
+                "      join users u on u.username = g.givenTo\n" +
+                "      join users z on z.username = g.user\n" +
+                "      join compliments c on c.id = g.complement  where g.givenTo is not null";
+            l = jdbcTemplate.queryForList(sql);
+        buildGive(l, uList);
+        return uList;
     }
 
     @Override
@@ -94,8 +123,8 @@ public class GiveServiceImpl implements GiveService{
 
     @Override
     public void updateGive(Give g) {
-        jdbcTemplate.update("update give set receivedDt = ?, givenDt = ?, receivedBy = ?, status = ?, giveType = ?, spentDt = ?, praise = ? where id = ?",
-                g.getReceivedDt(), g.getGivenDt(), g.getReceivedBy(), g.getStatus().name(), g.getType().name(), g.getSpentDt(), g.getPraise(), g.getId());
+        String sql = "update give set user = ?, receivedDt = ?, givenDt = ?, receivedBy = ?, status = ?, giveType = ?, spentDt = ?, complement = ?, award = ?, givenTo = ?, comment = ? where id = ?";
+        jdbcTemplate.update(sql, g.user, g.receivedDt, g.givenDt, g.receivedBy, g.status.name(), g.type.name(), g.spentDt, g.complement, g.award, g.givenTo, g.comment, g.id);
     }
 
     @Override
@@ -132,7 +161,7 @@ public class GiveServiceImpl implements GiveService{
         g.setReceivedBy(type.name());
         g.setReceivedDt(new Date());
         g.setUser(user);
-        g.setPraise(praiseId);
+        g.setComplement(praiseId);
         saveGive(g);
     }
 
@@ -155,11 +184,24 @@ public class GiveServiceImpl implements GiveService{
                 u.setStatus(GivesStatusEnum.getForName((String)m.get("status")));
                 u.setType(GivesTypeEnum.getForName((String) m.get("giveType")));
                 u.setSpentDt((Date) m.get("spentDt"));
+                u.setComplementName((String) m.get("complementName"));
                 String s = (String) m.get("award");
                 u.setAward(s!=null?Long.parseLong(s):null);
-                try{u.setPraise(((Integer) m.get("praise")).longValue());}catch(NullPointerException e){/*null value*/}
+                try{u.setComplement(((Integer) m.get("praise")).longValue());}catch(NullPointerException e){/*null value*/}
+                u.setGivenTo((String)m.get("givenTo"));
+                u.setComment((String) m.get("comment"));
                 uList.add(u);
             }
         }
+    }
+
+    @Override
+    public List<Give> getAwardsLog() {
+        List<Give> uList = new ArrayList<Give>();
+        List<Map<String, Object>> l = null;
+        String sql = "select g.* from give g join praise p on p.id = g.praise where g.status = ?";
+        l = jdbcTemplate.queryForList(sql, new Object[] {GivesStatusEnum.GIVEN_SPENT.name()});
+        buildGive(l, uList);
+        return uList;
     }
 }
