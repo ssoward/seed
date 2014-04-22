@@ -1,5 +1,6 @@
 package com.ssoward.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ssoward.model.enums.GivesStatusEnum;
 import com.ssoward.model.enums.GivesTypeEnum;
 
@@ -8,21 +9,26 @@ import java.util.Date;
 /**
  * Created by ssoward on 3/5/14.
  */
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Give {
 
     public Long            id;
     public String          user;
     public Date            receivedDt;
+    public Date            awardReceivedDt;
     public Date            givenDt;
     public String          receivedBy;
     public GivesStatusEnum status;
     public GivesTypeEnum   type;
     public Date            spentDt;
     public Long            complement;
-    public Long            award;
+    public Award           award;
     public String          givenTo;
     public String          comment;
     public String          complementName;
+    public Long combinationPurchase;
+    public Boolean distributed;
 
     public Long getId() {
         return id;
@@ -96,11 +102,11 @@ public class Give {
         this.complement = complement;
     }
 
-    public Long getAward() {
+    public Award getAward() {
         return award;
     }
 
-    public void setAward(Long award) {
+    public void setAward(Award award) {
         this.award = award;
     }
 
@@ -126,5 +132,29 @@ public class Give {
 
     public void setComplementName(String complementName) {
         this.complementName = complementName;
+    }
+
+    public void setCombinationPurchase(Long combinationPurchase) {
+        this.combinationPurchase = combinationPurchase;
+    }
+
+    public Long getCombinationPurchase() {
+        return combinationPurchase;
+    }
+
+    public Date getAwardReceivedDt() {
+        return awardReceivedDt;
+    }
+
+    public void setAwardReceivedDt(Date awardReceivedDt) {
+        this.awardReceivedDt = awardReceivedDt;
+    }
+
+    public Boolean getDistributed() {
+        return distributed;
+    }
+
+    public void setDistributed(Boolean distributed) {
+        this.distributed = distributed;
     }
 }

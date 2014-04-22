@@ -19,6 +19,13 @@ public class Award {
     private String title;
     private String cost;
 
+    public Award() {
+
+    }
+    public Award(Long l) {
+        this.id = l;
+    }
+
     public Long getId() {
         return id;
     }

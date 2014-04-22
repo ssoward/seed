@@ -193,22 +193,4 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public void decrementBucks(Award a) throws InsufficientResourcesException {
-        Employee emp = getLoggedInUser();
-        if(emp.getUnspentBucks() == null || emp.getUnspentBucks()<1){
-            throw new InsufficientResourcesException("No Bread");
-        }
-        for(Give g: emp.getBucks()){
-            if(g.getStatus().equals(GivesStatusEnum.GIVEN)){
-                g.setStatus(GivesStatusEnum.GIVEN_SPENT);
-                g.setSpentDt(new Date());
-                g.setAward(a.getId());
-                giveService.updateGive(g);
-                break;
-            }
-        }
-
-    }
-
 }

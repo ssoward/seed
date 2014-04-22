@@ -46,22 +46,6 @@ public class AwardController {
     @Autowired
     FileService fileService;
 
-//    @RequestMapping(value="/upload", method = RequestMethod.POST)
-//    public void UploadFile(MultipartHttpServletRequest request, HttpServletResponse response) {
-//        Iterator<String> itr=request.getFileNames();
-//
-//        MultipartFile file=request.getFile(itr.next());
-//
-//        String fileName=file.getOriginalFilename();
-//        System.out.println(fileName);
-//    }
-
-    @RequestMapping(method = RequestMethod.GET, value="/awards/logs", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<String> fetchAwardsLog(@RequestParam(value = "page", required = false, defaultValue = "0") int page) {
-        List<Give> awards = giveService.getAwardsLog();
-        return new ResponseEntity(awards, HttpStatus.OK);
-    }
-
     @RequestMapping(method = RequestMethod.GET, value="/awards", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<String> fetchAwards(@RequestParam(value = "page", required = false, defaultValue = "0") int page) {
         List<Award> awards = awardsService.getAwards();

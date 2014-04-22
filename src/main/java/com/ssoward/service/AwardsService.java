@@ -1,7 +1,9 @@
 package com.ssoward.service;
 
 import com.ssoward.model.Award;
+import com.ssoward.model.Give;
 
+import javax.naming.InsufficientResourcesException;
 import java.util.List;
 
 /**
@@ -17,4 +19,8 @@ public interface AwardsService {
     Award getAward(Long id);
 
     void updateAward(Award award);
+
+    void decrementBucks(Award a) throws InsufficientResourcesException;
+
+    void awardDistributed(Give give);
 }

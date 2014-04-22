@@ -31,5 +31,7 @@ public interface GiveService {
 
     void updateMonthlyForParticipation(Employee employee);
 
-    List<Give> getAwardsLog();
+    List<Give> fetchPurchasedLogs();
+
+    Give getGive(Long id);
 }

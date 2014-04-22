@@ -25,4 +25,19 @@ angular.module('myApp').service('GiveService', function ($http, $log) {
         });
     }
 
+    this.awardDistributed = function(give){
+        return $http({
+            method: 'PUT',
+            data: give,
+            url: '/api/gives/distributed'
+        });
+    }
+
+    this.fetchPurchasedLogs = function (){
+        return $http({
+            method: 'GET',
+            url: '/api/gives/logs'
+        });
+    };
+
 });

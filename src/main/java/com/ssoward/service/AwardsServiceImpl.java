@@ -1,6 +1,9 @@
 package com.ssoward.service;
 
 import com.ssoward.model.Award;
+import com.ssoward.model.Employee;
+import com.ssoward.model.Give;
+import com.ssoward.model.enums.GivesStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -9,12 +12,14 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 
+import javax.naming.InsufficientResourcesException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
-import java.util.List;
+import java.util.*;
+import java.util.Date;
 
 /**
  * Created by ssoward on 3/17/14.
@@ -28,6 +33,9 @@ public class AwardsServiceImpl implements AwardsService{
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    GiveService giveService;
 
     @Override
     public Long saveAward(final Award a) {
@@ -90,7 +98,49 @@ public class AwardsServiceImpl implements AwardsService{
     @Override
     public void updateAward(Award award) {
         jdbcTemplate.update("update awards set title = ?, cost = ? where id = ?",
-               award.getTitle(), award.getCost(), award.getId());
+                award.getTitle(), award.getCost(), award.getId());
 
+    }
+
+    @Override
+    public void decrementBucks(Award a) throws InsufficientResourcesException {
+        Employee emp = userService.getLoggedInUser();
+        if(emp.getUnspentBucks() == null || emp.getUnspentBucks()<1){
+            throw new InsufficientResourcesException("No Bread");
+        }
+        int l = Integer.parseInt(a.getCost());
+        Long combinationPurchase = null;
+        for(int i = 0; i<l; i++) {
+            for (Give g : emp.getBucks()) {
+                if (g.getStatus().equals(GivesStatusEnum.GIVEN)) {
+                    GivesStatusEnum gse = GivesStatusEnum.GIVEN_SPENT;
+                    if(i>0){
+                        gse = GivesStatusEnum.USED_IN_COMBINATION;
+                        g.setCombinationPurchase(combinationPurchase);
+                    }else {
+                        combinationPurchase = g.getId();
+                    }
+                    g.setStatus(gse);
+                    g.setSpentDt(new java.util.Date());
+                    g.setAward(a);
+                    giveService.updateGive(g);
+                    break;
+                }
+            }
+        }
+    }
+
+    //fetch give to retain status when g.getDistributed = null || false
+    @Override
+    public void awardDistributed(Give give) {
+        if(give.getDistributed()!= null && give.getDistributed()){
+            give.awardReceivedDt = new Date();
+            give.status = GivesStatusEnum.AWARD_RECEIVED;
+        }else{
+            give.awardReceivedDt = null;
+            give.status = GivesStatusEnum.GIVEN_SPENT;
+        }
+        jdbcTemplate.update("update give set status = ?, awardReceivedDt = ? where id = ?",
+                give.getStatus().name(), give.getAwardReceivedDt(), give.getId());
     }
 }

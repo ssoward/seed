@@ -21,5 +21,4 @@ public interface UserService {
 
     void distributeGive(Give give) throws InsufficientResourcesException;
 
-    void decrementBucks(Award a) throws InsufficientResourcesException;
 }

@@ -1,6 +1,7 @@
 package com.ssoward.controller;
 
 import com.ssoward.model.Award;
+import com.ssoward.service.AwardsService;
 import com.ssoward.service.TestUtil;
 import com.ssoward.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +23,16 @@ public class BuckController {
     TestUtil testUtil;
 
     @Autowired
-    UserService userService;
+    AwardsService awardsService;
 
     @RequestMapping(method = RequestMethod.PUT, value="/buck/buy", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity updateAward(@RequestBody Award award) {
         if(award != null){
-            int l = Integer.parseInt(award.getCost());
-            for(int i = 0; i<l; i++){
-                try {
-                    userService.decrementBucks(award);
-                } catch (InsufficientResourcesException e) {
-                    e.printStackTrace();
-                    return new ResponseEntity(HttpStatus.CONFLICT);
-                }
+            try {
+                awardsService.decrementBucks(award);
+            } catch (InsufficientResourcesException e) {
+                e.printStackTrace();
+                return new ResponseEntity(HttpStatus.CONFLICT);
             }
         }
         return new ResponseEntity(HttpStatus.OK);
