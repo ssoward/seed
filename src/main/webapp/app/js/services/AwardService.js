@@ -8,10 +8,10 @@ angular.module('myApp').service('AwardService', function ($http, $log) {
         });
     }
 
-    this.getAllCompliments = function (){
+    this.getAllComplements = function (){
         return $http({
             method: 'GET',
-            url: '/api/compliments'
+            url: '/api/complements'
         });
     };
 

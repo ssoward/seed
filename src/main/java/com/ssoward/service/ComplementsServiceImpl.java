@@ -1,6 +1,6 @@
 package com.ssoward.service;
 
-import com.ssoward.model.Compliment;
+import com.ssoward.model.Complement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 @Service
-public class ComplimentsServiceImpl implements ComplimentsService {
+public class ComplementsServiceImpl implements ComplementsService {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -24,10 +24,10 @@ public class ComplimentsServiceImpl implements ComplimentsService {
     UserService userService;
 
     @Override
-    public List<Compliment> getCompliments() {
-        List<Compliment> l = jdbcTemplate.query("select * from compliments", new RowMapper() {
-            @Override public Compliment mapRow(ResultSet rs, int i) throws SQLException {
-                Compliment prop = new Compliment();
+    public List<Complement> getComplements() {
+        List<Complement> l = jdbcTemplate.query("select * from complements", new RowMapper() {
+            @Override public Complement mapRow(ResultSet rs, int i) throws SQLException {
+                Complement prop = new Complement();
                 prop.setId(rs.getLong("id"));
                 prop.setName(rs.getString("name"));
                 prop.setCreatedDt(rs.getDate("createdDt"));
@@ -39,14 +39,14 @@ public class ComplimentsServiceImpl implements ComplimentsService {
     }
 
     @Override
-    public void saveCompliment(Compliment compliment) {
-        jdbcTemplate.update("insert into compliments values (null,?, ?, now())",
-                        compliment.getName(),
+    public void saveComplement(Complement complement) {
+        jdbcTemplate.update("insert into complements values (null,?, ?, now())",
+                        complement.getName(),
                         userService.getLoggedInUser().getEmail());
     }
 
     @Override
-    public void deleteCompliment(Long id) {
-        jdbcTemplate.update("delete from compliments where id = ?", id);
+    public void deleteComplement(Long id) {
+        jdbcTemplate.update("delete from complements where id = ?", id);
     }
 }

@@ -1,4 +1,4 @@
-angular.module('myApp').controller('StoreController', function ($scope, ComplimentService, BuckService, AdminService, $log, AwardService){
+angular.module('myApp').controller('StoreController', function ($scope, ComplementService, BuckService, AdminService, $log, AwardService){
     $scope.greeting = 'Hello, world';
 
     $scope.alerts = [

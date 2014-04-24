@@ -45,7 +45,7 @@
 //                "  from praise p \n" +
 //                "      join users u on u.username = p.praisee\n" +
 //                "      join users z on z.username = p.praiser\n" +
-//                "      join compliments c on c.id = p.praise";
+//                "      join complements c on c.id = p.praise";
 //        List<Praise> l = jdbcTemplate.query(sql, new RowMapper() {
 //            @Override public Praise mapRow(ResultSet rs, int i) throws SQLException {
 //                Praise prop = new Praise();

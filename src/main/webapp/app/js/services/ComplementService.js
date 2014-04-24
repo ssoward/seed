@@ -1,10 +1,10 @@
-angular.module('myApp').service('BuckService', function ($http, $log) {
+angular.module('myApp').service('ComplementService', function ($http, $log) {
 
-    this.decrementBucks = function(award){
+    this.saveComplements = function(complement){
         return $http({
-            method: 'PUT',
-            data: award,
-            url: '/api/buck/buy'
+            method: 'POST',
+            data: complement,
+            url: '/api/complements'
         });
     }
 

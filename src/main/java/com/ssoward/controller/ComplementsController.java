@@ -1,7 +1,7 @@
 package com.ssoward.controller;
 
-import com.ssoward.model.Compliment;
-import com.ssoward.service.ComplimentsService;
+import com.ssoward.model.Complement;
+import com.ssoward.service.ComplementsService;
 import com.ssoward.service.TestUtil;
 import com.ssoward.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/api")
-public class ComplimentsController {
+public class ComplementsController {
 
     @Autowired
     TestUtil testUtil;
@@ -29,25 +29,25 @@ public class ComplimentsController {
     UserService userService;
 
     @Autowired
-    ComplimentsService complimentService;
+    ComplementsService complementService;
 
-    @RequestMapping(method = RequestMethod.POST, value="/compliments", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity saveCompliment(@RequestBody Compliment compliment) {
-        if(compliment != null){
-            complimentService.saveCompliment(compliment);
+    @RequestMapping(method = RequestMethod.POST, value="/complements", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity saveComplement(@RequestBody Complement complement) {
+        if(complement != null){
+            complementService.saveComplement(complement);
         }
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/compliments", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(method = RequestMethod.GET, value = "/complements", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public List<Compliment> getCompliments(HttpServletRequest request) {
-        return complimentService.getCompliments();
+    public List<Complement> getComplements(HttpServletRequest request) {
+        return complementService.getComplements();
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value="/compliments", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.DELETE, value="/complements", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteEmployee(@RequestParam Long id) {
-        complimentService.deleteCompliment(id);
+        complementService.deleteComplement(id);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

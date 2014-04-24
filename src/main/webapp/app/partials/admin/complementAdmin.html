@@ -5,7 +5,7 @@
 <div>
     <div class="row">
         <div class="form-group col-lg-10">
-            <textarea maxlength="150" ng-model="newCompliment" name="message" id="comments" placeholder="Add Compliment"></textarea>
+            <textarea maxlength="150" ng-model="newComplement" name="message" id="comments" placeholder="Add Complement"></textarea>
         </div>
     </div>
     <div class="row">
@@ -26,10 +26,10 @@
         <div class="col-sm-1"><a href="" ng-click="predicate = 'praiseDt'; reverse=false">Name</a></div>
     </div>
 
-    <div class="my-row row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="comp in compliments | orderBy:predicate:true">
+    <div class="my-row row" ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat="comp in complements | orderBy:predicate:true">
         <div data-ng-show="userAdmin" class="col-sm-1">Cancel</div>
         <div class="col-sm-1">
-            <button tooltip="Delete Compliment" class="btn btn-danger" ng-click="deleteCompliment(comp)" value="delete"/>
+            <button tooltip="Delete Complement" class="btn btn-danger" ng-click="deleteComplement(comp)" value="delete"/>
         </div>
         <div class="col-lg-10">
             {{comp.name}}

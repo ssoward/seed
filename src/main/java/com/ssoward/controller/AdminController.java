@@ -52,7 +52,7 @@ public class AdminController {
     UserService userService;
 
     @Autowired
-    ComplimentsService complimentService;
+    ComplementsService complementService;
 
     @Autowired
     FileService fileService;

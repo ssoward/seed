@@ -30,10 +30,10 @@ angular.module('myApp').config(function ($stateProvider, $urlRouterProvider) {
                 templateUrl: 'partials/admin/employeeAdmin.html',
                 controller: 'AdminUsersController'
             })
-            .state('admin.compliments', {
-                url: '/compliments',
-                templateUrl: 'partials/admin/complimentAdmin.html',
-                controller: 'AdminComplimentsController'
+            .state('admin.complements', {
+                url: '/complements',
+                templateUrl: 'partials/admin/complementAdmin.html',
+                controller: 'AdminComplementsController'
             })
             .state('admin.give', {
                 url: '/give',

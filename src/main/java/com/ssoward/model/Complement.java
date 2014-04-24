@@ -9,7 +9,7 @@ import java.util.Date;
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Compliment {
+public class Complement {
 
     Long id;
     String name;

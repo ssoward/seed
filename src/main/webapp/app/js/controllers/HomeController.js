@@ -1,4 +1,4 @@
-angular.module('myApp').controller('HomeController', function ($scope, ComplimentService, GiveService, AdminService, $log){
+angular.module('myApp').controller('HomeController', function ($scope, ComplementService, GiveService, AdminService, $log){
     $scope.greeting = 'Hello, world';
 
     $scope.alerts = [
@@ -22,13 +22,13 @@ angular.module('myApp').controller('HomeController', function ($scope, Complimen
     function init(){
         getUser();
         getPraises();
-        getCompliments();
+        getComplements();
     }
 
-    function getCompliments(){
-        ComplimentService.getAllCompliments()
+    function getComplements(){
+        ComplementService.getAllComplements()
                 .then(function(res){
-                    $scope.compliments = res.data;
+                    $scope.complements = res.data;
                 });
     }
 

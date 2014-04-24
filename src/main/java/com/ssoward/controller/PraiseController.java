@@ -56,11 +56,5 @@ public class PraiseController {
     public List<Give> getAllPraises(HttpServletRequest request) {
         return giveService.getAllPraises();
     }
-//
-//    @RequestMapping(method = RequestMethod.DELETE, value="/praise", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity deleteEmployee(@RequestParam Long id) {
-//        giveService.deletePraise(id);
-//        return new ResponseEntity(HttpStatus.OK);
-//    }
 
 }

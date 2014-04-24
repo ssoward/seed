@@ -35,7 +35,7 @@ public class GiveController {
     UserService userService;
 
     @Autowired
-    ComplimentsService complimentService;
+    ComplementsService complementService;
 
     @Autowired
     FileService fileService;

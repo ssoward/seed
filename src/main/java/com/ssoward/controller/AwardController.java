@@ -41,7 +41,7 @@ public class AwardController {
     UserService userService;
 
     @Autowired
-    ComplimentsService complimentService;
+    ComplementsService complementService;
 
     @Autowired
     FileService fileService;

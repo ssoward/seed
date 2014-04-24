@@ -110,7 +110,7 @@ public class GiveServiceImpl implements GiveService{
                 "  from give g \n" +
                 "      join users u on u.username = g.givenTo\n" +
                 "      join users z on z.username = g.user\n" +
-                "      join compliments c on c.id = g.complement  where g.givenTo is not null";
+                "      join complements c on c.id = g.complement  where g.givenTo is not null";
         l = jdbcTemplate.queryForList(sql);
         buildGive(l, uList);
         return uList;
@@ -212,7 +212,7 @@ public class GiveServiceImpl implements GiveService{
                 "  from give g \n" +
                 "      join users u on u.username = g.givenTo\n" +
                 "      join users z on z.username = g.user\n" +
-                "      join compliments c on c.id = g.complement  where status in (?, ?)";
+                "      join complements c on c.id = g.complement  where status in (?, ?)";
         l = jdbcTemplate.queryForList(sql, GivesStatusEnum.GIVEN_SPENT.name(), GivesStatusEnum.AWARD_RECEIVED.name());
         buildGive(l, uList);
         List<Award> aList = awardService.getAwards();

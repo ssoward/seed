@@ -1,9 +1,9 @@
-angular.module('myApp').controller('AdminComplimentsController', function ($scope, ComplimentService, AdminService, $log, $rootScope){
+angular.module('myApp').controller('AdminComplementsController', function ($scope, ComplementService, AdminService, $log, $rootScope){
 
     function init(){
-        ComplimentService.getAllCompliments()
+        ComplementService.getAllComplements()
                 .then(function(res){
-                    $scope.compliments = res.data;
+                    $scope.complements = res.data;
                 });
     };
 
@@ -16,24 +16,24 @@ angular.module('myApp').controller('AdminComplimentsController', function ($scop
     ];
 
     $scope.save = function() {
-        $scope.compliment = {name:$scope.newCompliment};
+        $scope.complement = {name:$scope.newComplement};
 
-        ComplimentService.saveCompliments($scope.compliment)
+        ComplementService.saveComplements($scope.complement)
                 .then(function(res){
-                    ComplimentService.getAllCompliments()
+                    ComplementService.getAllComplements()
                             .then(function(res){
-                                $scope.compliments = res.data;
-                                $scope.newCompliment = null;
+                                $scope.complements = res.data;
+                                $scope.newComplement = null;
                             });
                 });
     };
 
-    $scope.deleteCompliment = function(comp) {
-        ComplimentService.deleteCompliment(comp)
+    $scope.deleteComplement = function(comp) {
+        ComplementService.deleteComplement(comp)
                 .then(function(res){
-                    ComplimentService.getAllCompliments()
+                    ComplementService.getAllComplements()
                             .then(function(res){
-                                $scope.compliments = res.data;
+                                $scope.complements = res.data;
                             });
                 });
     };

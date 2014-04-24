@@ -5,7 +5,7 @@
     <span class="panel-title h1">Points</span>
     <ul class="nav">
         <li>Total YV Bucks Received {{ user.unspentBucks }}</li>
-        <li>Total Compliments to Give {{ user.remainingGives }}</li>
+        <li>Total Complements to Give {{ user.remainingGives }}</li>
     </ul>
 </div>
 <br>
@@ -14,15 +14,18 @@
         <div class="row">
             <div class="form-group col-md-2">
                 <label for="peer">Please Select a Peer:</label>
-                <select ng-model="newPraisee" name="reason" id="peer" class="form-control"
+                <select ng-model="newPraisee"
+                        name="reason" id="peer" class="form-control"
                         ng-options="mem as mem.firstName + ' ' + mem.lastName for mem in members | orderBy:'firstName'">
+                    <option style="display:none" value="">Select a Peer</option>
                 </select>
             </div>
 
             <div class="form-group col-md-3">
-                <label for="releaseCompliment">Please Select a Compliment:</label>
-                <select ng-model="newPraise" name="reason" id="releaseCompliment" class="form-control"
-                        ng-options="comp.id as comp.name for comp in compliments | orderBy:'name'">
+                <label for="releaseComplement">Please Select a Complement:</label>
+                <select ng-model="newPraise" name="reason" id="releaseComplement" class="form-control"
+                        ng-options="comp.id as comp.name for comp in complements | orderBy:'name'">
+                    <option style="display:none" value="">Complement...</option>
                 </select>
             </div>
         </div>
